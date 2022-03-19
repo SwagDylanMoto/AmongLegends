@@ -6,4 +6,8 @@ class Router extends Singleton {
     {
         parent::__construct();
     }
+
+    function process() {
+        $request = SingletonRegistry::$registry['Request'];
+    }
 }

@@ -5,11 +5,22 @@ class EndStatDAO extends DAO {
     function __construct()
     {
         parent::__construct();
+        $this->tableName = "end_stat";
     }
 
-    public function create($partyDTO) {}
+    public function create($endStatDTO) {
+        try {
+            $sql = $this->db->prepare('INSERT INTO :tableName () VALUES ()');
+            $sql->execute([
+                'tableName' => $this->tableName,
+                'gameId' => $endStatDTO->gameId
+            ]);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
 
-    public function update($partyDTO) {}
+    public function update($endStatDTO) {}
 
     public function delete($endStatDTO) {
         try {
