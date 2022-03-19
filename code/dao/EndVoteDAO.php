@@ -8,7 +8,7 @@ class EndVoteDAO extends IdentifierDAO {
         $this->tableName = "end_vote";
     }
 
-    public function create($partyDTO) {
+    public function create($endVoteDTO) {
         try {
             $sql = $this->db->prepare(
                 'INSERT INTO :tableName (ROLE , VOTING_GS_ID , VOTED_GS_ID) 
@@ -16,17 +16,17 @@ class EndVoteDAO extends IdentifierDAO {
             );
             $sql->execute([
                 'tableName' => $this->tableName,
-                'role' => $partyDTO->role,
-                'votingGSId' => $partyDTO->votingGSId,
-                'votedGSId' => $partyDTO->votedGSId
+                'role' => $endVoteDTO->role,
+                'votingGSId' => $endVoteDTO->votingGSId,
+                'votedGSId' => $endVoteDTO->votedGSId
             ]);
-            $partyDTO->identifier = $sql->lastInsertId;
+            $endVoteDTO->identifier = $sql->lastInsertId;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
     }
 
-    public function update($partyDTO) {
+    public function update($endVoteDTO) {
         try {
             $sql = $this->db->prepare(
                 'UPDATE :tableName SET
@@ -37,10 +37,10 @@ class EndVoteDAO extends IdentifierDAO {
             );
             $sql->execute([
                 'tableName' => $this->tableName,
-                'role' => $partyDTO->role,
-                'votingGSId' => $partyDTO->votingGSId,
-                'votedGSId' => $partyDTO->votedGSId,
-                'id' => $partyDTO->identifier
+                'role' => $endVoteDTO->role,
+                'votingGSId' => $endVoteDTO->votingGSId,
+                'votedGSId' => $endVoteDTO->votedGSId,
+                'id' => $endVoteDTO->identifier
             ]);
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
