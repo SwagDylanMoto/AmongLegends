@@ -1,5 +1,4 @@
 <?php
-include('../code/dto/AbstractIdentifierDTO.php');
 
 class PartyDTO extends IdentifierDTO {
 
@@ -8,4 +7,6 @@ class PartyDTO extends IdentifierDTO {
     public $active;
 
     public $dyingDate;
+
+    public $activeGameId;
 }

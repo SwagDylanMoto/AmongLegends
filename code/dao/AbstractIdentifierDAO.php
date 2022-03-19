@@ -1,5 +1,4 @@
 <?php
-include('../code/dao/AbstractDAO.php');
 
 abstract class IdentifierDAO extends DAO {
 

@@ -3,7 +3,11 @@
 abstract class Singleton {
 
     function __construct() {
-        SingletonRegistry::$registry[get_class($this)] = $this; 
+        $className = get_class($this);
+        if(SingletonRegistry::$registry[$className]) {
+            return SingletonRegistry::$registry[$className];
+        }
+        SingletonRegistry::$registry[$className] = $this; 
     }
 
     public function init() {}

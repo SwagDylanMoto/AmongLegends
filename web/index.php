@@ -5,7 +5,7 @@ $request = new Request();
 
 $request->page = "index";
 
-include("../code/core/Router.php");
+print_r(SingletonRegistry::$registry);
 
 ?>
 

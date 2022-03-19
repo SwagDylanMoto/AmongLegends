@@ -1,5 +1,4 @@
 <?php
-include('../code/core/AbstractSingleton.php');
 
 abstract class DAO extends Singleton {
     protected $db;

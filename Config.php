@@ -3,4 +3,6 @@
 class Config {
 
     static public string $dbName = "amonglegends_dev";
+
+    static public string $baseUrl = "http://localhost";
 }

@@ -1,11 +1,11 @@
 <?php
 
-class PartyDAO extends IdentifierDAO {
+class GameDAO extends IdentifierDAO {
 
     function __construct()
     {
         parent::__construct();
-        $this->tableName = "party";
+        $this->tableName = "game";
     }
 
     public function create($partyDTO) {
@@ -16,4 +16,4 @@ class PartyDAO extends IdentifierDAO {
     }
 }
 
-new PartyDAO();
+new GameDAO();
