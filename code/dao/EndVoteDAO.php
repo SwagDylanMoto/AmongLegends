@@ -9,10 +9,53 @@ class EndVoteDAO extends IdentifierDAO {
     }
 
     public function create($partyDTO) {
+        try {
+            $sql = $this->db->prepare(
+                'INSERT INTO :tableName (ROLE , VOTING_GS_ID , VOTED_GS_ID) 
+                VALUES (:role , :votingGSId , :votedGSId)'
+            );
+            $sql->execute([
+                'tableName' => $this->tableName,
+                'role' => $partyDTO->role,
+                'votingGSId' => $partyDTO->votingGSId,
+                'votedGSId' => $partyDTO->votedGSId
+            ]);
+            $partyDTO->identifier = $sql->lastInsertId;
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
     }
 
     public function update($partyDTO) {
-        
+        try {
+            $sql = $this->db->prepare(
+                'UPDATE :tableName SET
+                ROLE = :role , 
+                VOTING_GS_ID = :votingGSId , 
+                VOTED_GS_ID = :votedGSId 
+                WHERE ID = :id'
+            );
+            $sql->execute([
+                'tableName' => $this->tableName,
+                'role' => $partyDTO->role,
+                'votingGSId' => $partyDTO->votingGSId,
+                'votedGSId' => $partyDTO->votedGSId,
+                'id' => $partyDTO->identifier
+            ]);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
+    protected function fetch($data) {
+        $endVoteDTO = new EndVoteDTO();
+
+        $endVoteDTO->identifier = $data["ID"];
+        $endVoteDTO->votingGSId = $data["VOTING_GS_ID"];
+        $endVoteDTO->votedGSId = $data["VOTED_GS_ID"];
+        $endVoteDTO->role = $data["ROLE"];
+
+        return $endVoteDTO;
     }
 }
 

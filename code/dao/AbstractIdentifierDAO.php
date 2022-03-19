@@ -22,4 +22,21 @@ abstract class IdentifierDAO extends DAO {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
     }
+
+    public function get($id) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM :tableName WHERE ID = :id');
+            $sql->execute([
+                'tableName' => $this->tableName,
+                'id' => $id
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            return $this->fetch($data);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
+    abstract protected function fetch($data);
 }

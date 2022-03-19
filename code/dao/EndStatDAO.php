@@ -10,7 +10,7 @@ class EndStatDAO extends DAO {
 
     public function create($endStatDTO) {
         try {
-            $sql = $this->db->prepare('INSERT INTO :tableName () VALUES ()');
+            $sql = $this->db->prepare('INSERT INTO :tableName (GAME_ID) VALUES (:gameId)');
             $sql->execute([
                 'tableName' => $this->tableName,
                 'gameId' => $endStatDTO->gameId
@@ -20,7 +20,9 @@ class EndStatDAO extends DAO {
         }
     }
 
-    public function update($endStatDTO) {}
+    public function update($endStatDTO) {
+        //normalement inutile
+    }
 
     public function delete($endStatDTO) {
         try {
@@ -29,6 +31,24 @@ class EndStatDAO extends DAO {
                 'tableName' => $this->tableName,
                 'gameId' => $endStatDTO->gameId
             ]);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
+    public function get($gameId) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM :tableName WHERE GAME_ID = :gameId');
+            $sql->execute([
+                'tableName' => $this->tableName,
+                'gameId' => $gameId
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            $endStatDTO = new EndStatDTO();
+            $endStatDTO->gameId = $data['GAME_ID'];
+
+            return $endStatDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
