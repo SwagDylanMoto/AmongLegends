@@ -4,6 +4,8 @@ include('../code/core/AbstractSingleton.php');
 abstract class DAO extends Singleton {
     protected $db;
 
+    protected $tableName;
+
     public function __construct() {
         parent::__construct();
 
@@ -14,4 +16,10 @@ abstract class DAO extends Singleton {
             die();
         }
     }
+
+    abstract public function create($dto);
+
+    abstract public function update($dto);
+
+    abstract public function delete($dto);
 }
