@@ -13,6 +13,7 @@ class Router extends Singleton {
         $controller = null;
         switch($request->page) {
             case("index"):
+                header("Location: ".Config::$baseUrl."/login");
                 break;
             case("login"):
                 include(SingletonRegistry::$registry["Request"]->base."code/controller/LoginController.php");

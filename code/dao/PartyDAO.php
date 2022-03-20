@@ -20,6 +20,7 @@ class PartyDAO extends IdentifierDAO {
                 'code' => $partyDTO->code,
                 'dyingDate' => $partyDTO->dyingDate
             ]);
+            $partyDTO->identifer = $this->db->lastInsertId();
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -55,6 +56,24 @@ class PartyDAO extends IdentifierDAO {
         $partyDTO->dyingDate = $data['DYING_DATE'];
 
         return $partyDTO;
+    }
+
+    public function getByCode($code) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM :tableName WHERE CODE = :code');
+            $sql->execute([
+                'tableName' => $this->tableName,
+                'code' => $code
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!$data["ID"]) {
+                return null;
+            }
+            return $this->fetch($data);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
     }
 }
 

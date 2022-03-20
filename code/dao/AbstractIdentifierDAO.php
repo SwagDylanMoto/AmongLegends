@@ -32,6 +32,9 @@ abstract class IdentifierDAO extends DAO {
             ]);
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+            if (!$data["ID"]) {
+                return null;
+            }
             return $this->fetch($data);
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";

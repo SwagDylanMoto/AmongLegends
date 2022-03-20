@@ -26,6 +26,9 @@ include($base."code/dao/EndVoteDAO.php");
 include($base."code/dao/EndStatDAO.php");
 
 
+include($base."code/service/PartyService.php");
+
+
 include($base."code/controller/AbstractController.php");
 
 
