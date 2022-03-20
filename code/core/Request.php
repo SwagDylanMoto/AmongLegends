@@ -4,6 +4,8 @@ class Request extends Singleton {
 
     public $page;
 
+    public $base;
+
     public $token;
 
     public $nickname;
