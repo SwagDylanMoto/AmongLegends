@@ -11,16 +11,14 @@ class PartyDAO extends IdentifierDAO {
     public function create($partyDTO) {
         try {
             $sql = $this->db->prepare(
-                'INSERT INTO :tableName (ACTIVE , CODE , DYING_DATE) 
+                'INSERT INTO '.$this->tableName.' (ACTIVE , CODE , DYING_DATE) 
                 VALUES (:active , :code , :dyingDate)'
             );
-            $sql->execute([
-                'tableName' => $this->tableName,
-                'active' => $partyDTO->active,
-                'code' => $partyDTO->code,
-                'dyingDate' => $partyDTO->dyingDate
-            ]);
-            $partyDTO->identifer = $this->db->lastInsertId();
+            $sql->bindParam('active', $partyDTO->active, PDO::PARAM_BOOL);
+            $sql->bindParam('code', $partyDTO->code);
+            $sql->bindParam('dyingDate', $partyDTO->dyingDate);
+            $sql->execute();
+            $partyDTO->identifier = $this->db->lastInsertId();
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -29,14 +27,13 @@ class PartyDAO extends IdentifierDAO {
     public function update($partyDTO) {
         try {
             $sql = $this->db->prepare(
-                'UPDATE :tableName SET
+                'UPDATE '.$this->tableName.' SET
                 ACTIVE = :active , 
                 CODE = :code , 
                 DYING_DATE = :dyingDate 
                 WHERE ID = :id'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'active' => $partyDTO->active,
                 'code' => $partyDTO->code,
                 'dyingDate' => $partyDTO->dyingDate,
@@ -60,9 +57,8 @@ class PartyDAO extends IdentifierDAO {
 
     public function getByCode($code) {
         try {
-            $sql = $this->db->prepare('SELECT * FROM :tableName WHERE CODE = :code');
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE CODE = :code');
             $sql->execute([
-                'tableName' => $this->tableName,
                 'code' => $code
             ]);
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);

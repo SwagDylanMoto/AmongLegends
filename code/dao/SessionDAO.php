@@ -11,17 +11,17 @@ class SessionDAO extends IdentifierDAO {
     public function create($sessionDTO) {
         try {
             $sql = $this->db->prepare(
-                'INSERT INTO :tableName (NICKNAME , PARTY_ID , POINTS , TOKEN , ADMIN) 
+                'INSERT INTO '.$this->tableName.' (NICKNAME , PARTY_ID , POINTS , TOKEN , ADMIN) 
                 VALUES (:nickname , :partyId , :points , :token , :admin)'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'nickname' => $sessionDTO->nickname,
                 'partyId' => $sessionDTO->partyId,
                 'points' => $sessionDTO->points,
                 'token' => $sessionDTO->token,
                 'admin' => $sessionDTO->admin
             ]);
+            $sessionDTO->identifier = $this->db->lastInsertId();
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -30,7 +30,7 @@ class SessionDAO extends IdentifierDAO {
     public function update($sessionDTO) {
         try {
             $sql = $this->db->prepare(
-                'UPDATE :tableName SET
+                'UPDATE '.$this->tableName.' SET
                 NICKNAME = :nickname , 
                 PARTY_ID = :partyId , 
                 POINTS = :points , 
@@ -39,7 +39,6 @@ class SessionDAO extends IdentifierDAO {
                 WHERE ID = :id'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'nickname' => $sessionDTO->nickname,
                 'partyId' => $sessionDTO->partyId,
                 'points' => $sessionDTO->points,

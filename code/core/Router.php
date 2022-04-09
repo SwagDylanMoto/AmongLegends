@@ -19,6 +19,8 @@ class Router extends Singleton {
                 include(SingletonRegistry::$registry["Request"]->base."code/controller/LoginController.php");
                 $controller = SingletonRegistry::$registry["Controller"];
                 break;
+            case("party"):
+                break;
         }
         if ($controller) {
             $controller->process();

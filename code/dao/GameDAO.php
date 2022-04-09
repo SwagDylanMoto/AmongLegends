@@ -11,15 +11,15 @@ class GameDAO extends IdentifierDAO {
     public function create($gameDTO) {
         try {
             $sql = $this->db->prepare(
-                'INSERT INTO :tableName (PARTY_ID , STATUT , TYPE) 
+                'INSERT INTO '.$this->tableName.' (PARTY_ID , STATUT , TYPE) 
                 VALUES (:partyId , :statut , :type)'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'partyId' => $gameDTO->partyId,
                 'statut' => $gameDTO->statut,
                 'type' => $gameDTO->type
             ]);
+            $gameDTO->identifier = $this->db->lastInsertId();
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -28,14 +28,13 @@ class GameDAO extends IdentifierDAO {
     public function update($gameDTO) {
         try {
             $sql = $this->db->prepare(
-                'UPDATE :tableName SET
+                'UPDATE '.$this->tableName.' SET
                 PARTY_ID = :partyId , 
                 STATUT = :statut , 
                 TYPE = :type 
                 WHERE ID = :id'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'partyId' => $gameDTO->partyId,
                 'statut' => $gameDTO->statut,
                 'type' => $gameDTO->type,

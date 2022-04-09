@@ -11,16 +11,15 @@ class EndVoteDAO extends IdentifierDAO {
     public function create($endVoteDTO) {
         try {
             $sql = $this->db->prepare(
-                'INSERT INTO :tableName (ROLE , VOTING_GS_ID , VOTED_GS_ID) 
+                'INSERT INTO '.$this->tableName.' (ROLE , VOTING_GS_ID , VOTED_GS_ID) 
                 VALUES (:role , :votingGSId , :votedGSId)'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'role' => $endVoteDTO->role,
                 'votingGSId' => $endVoteDTO->votingGSId,
                 'votedGSId' => $endVoteDTO->votedGSId
             ]);
-            $endVoteDTO->identifier = $sql->lastInsertId;
+            $endVoteDTO->identifier = $this->db->lastInsertId();
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -29,14 +28,13 @@ class EndVoteDAO extends IdentifierDAO {
     public function update($endVoteDTO) {
         try {
             $sql = $this->db->prepare(
-                'UPDATE :tableName SET
+                'UPDATE '.$this->tableName.' SET
                 ROLE = :role , 
                 VOTING_GS_ID = :votingGSId , 
                 VOTED_GS_ID = :votedGSId 
                 WHERE ID = :id'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'role' => $endVoteDTO->role,
                 'votingGSId' => $endVoteDTO->votingGSId,
                 'votedGSId' => $endVoteDTO->votedGSId,

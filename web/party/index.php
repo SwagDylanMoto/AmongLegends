@@ -1,13 +1,11 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors','off');
-$base = "../";
+$base = "../../";
 
 include($base."code/core/bootstrap.php");
 
 $request = new Request();
 
-$request->page = "index";
+$request->page = "party";
 $request->base = $base;
 
 SingletonRegistry::$registry["Router"]->process();

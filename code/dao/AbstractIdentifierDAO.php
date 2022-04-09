@@ -13,9 +13,8 @@ abstract class IdentifierDAO extends DAO {
 
     public function delete($identifierDTO) {
         try {
-            $sql = $this->db->prepare('DELETE FROM :tableName WHERE ID = :id');
+            $sql = $this->db->prepare('DELETE FROM '.$this->tableName.' WHERE ID = :id');
             $sql->execute([
-                'tableName' => $this->tableName,
                 'id' => $identifierDTO->identifier
             ]);
         } catch(PDOException $e) {
@@ -25,9 +24,8 @@ abstract class IdentifierDAO extends DAO {
 
     public function get($id) {
         try {
-            $sql = $this->db->prepare('SELECT * FROM :tableName WHERE ID = :id');
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE ID = :id');
             $sql->execute([
-                'tableName' => $this->tableName,
                 'id' => $id
             ]);
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);

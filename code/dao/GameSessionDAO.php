@@ -11,17 +11,17 @@ class GameSessionDAO extends IdentifierDAO {
     public function create($gameSessionDTO) {
         try {
             $sql = $this->db->prepare(
-                'INSERT INTO :tableName (GAME_ID , POINTS , ROLE , SESSION_ID , VOTED) 
+                'INSERT INTO '.$this->tableName.' (GAME_ID , POINTS , ROLE , SESSION_ID , VOTED) 
                 VALUES (:gameId , :points , :role , :sessionId , :voted)'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'gameId' => $gameSessionDTO->gameId,
                 'points' => $gameSessionDTO->points,
                 'role' => $gameSessionDTO->role,
                 'sessionId' => $gameSessionDTO->sessionId,
                 'voted' => $gameSessionDTO->voted
             ]);
+            $gameSessionDTO->identifier = $this->db->lastInsertId();
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -30,7 +30,7 @@ class GameSessionDAO extends IdentifierDAO {
     public function update($gameSessionDTO) {
         try {
             $sql = $this->db->prepare(
-                'UPDATE :tableName SET
+                'UPDATE '.$this->tableName.' SET
                 GAME_ID = :gameId , 
                 POINTS = :points , 
                 ROLE = :role , 
@@ -39,7 +39,6 @@ class GameSessionDAO extends IdentifierDAO {
                 WHERE ID = :id'
             );
             $sql->execute([
-                'tableName' => $this->tableName,
                 'gameId' => $gameSessionDTO->gameId,
                 'points' => $gameSessionDTO->points,
                 'role' => $gameSessionDTO->role,
