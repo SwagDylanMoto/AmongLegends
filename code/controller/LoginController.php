@@ -3,25 +3,30 @@
 class LoginController extends Controller {
 
     private $partyService;
+    private $sessionService;
 
     function __construct() {
         parent::__construct();
 
         $this->partyService = SingletonRegistry::$registry["PartyService"];
+        $this->sessionService = SingletonRegistry::$registry["SessionService"];
     }
 
     public function process() {
         if ($_POST["nickname"]) {
-            $partyCode = "";
+            $party = null;
             if ($_GET["party"]) {
-                if ($this->partyService->partyExistsAndActive($_GET["party"])) {
-                    $partyCode =  $_GET["party"];
-                }
+                $party = $this->partyService->getPartyActiveByCode($_GET["party"]);
             }
-            if ($partyCode == "") {
-                print_r($this->partyService->createParty());
+            if ($party == null) {
+                $party = $this->partyService->createParty();
             }
-            //header("Location: ".Config::$baseUrl."/game?party=".$partyCode);
+
+            $session = $this->sessionService->joinParty($_POST["nickname"], $party);
+
+            print_r($session);
+
+            //header("Location: ".Config::$baseUrl."/party");
         }
 
         $this->front();

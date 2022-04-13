@@ -20,6 +20,8 @@ class Router extends Singleton {
                 $controller = SingletonRegistry::$registry["Controller"];
                 break;
             case("party"):
+                include(SingletonRegistry::$registry["Request"]->base."code/controller/PartyController.php");
+                $controller = SingletonRegistry::$registry["Controller"];
                 break;
         }
         if ($controller) {

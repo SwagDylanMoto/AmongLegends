@@ -10,20 +10,20 @@ class PartyService extends Singleton {
         $this->partyDAO = SingletonRegistry::$registry["PartyDAO"];
     }
 
-    public function partyExistsAndActive($code) {
+    public function getPartyActiveByCode($code) {
         $party = $this->partyDAO->getByCode($code);
         if ($party and $party->active) {
-            return true;
+            return $party;
         }
-        return false;
+        return null;
     }
 
     public function createParty() {
         $party = new PartyDTO();
 
-        $i = 1234;
+        $i = 6900;
         $code = (string)$i;
-        while($this->partyExistsAndActive($code) == true) {
+        while($this->getPartyActiveByCode($code) == true) {
             $i++;
             $code = (string)$i;
         }

@@ -14,7 +14,7 @@ class PartyController extends Controller{
         if ($_POST["nickname"]) {
             $partyCode = "";
             if ($_GET["party"]) {
-                if ($this->partyService->partyExistsAndActive($_GET["party"])) {
+                if ($this->partyService->getPartyActiveByCode($_GET["party"])) {
                     $partyCode =  $_GET["party"];
                 }
             }

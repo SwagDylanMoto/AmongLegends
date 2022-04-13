@@ -51,6 +51,43 @@ class SessionDAO extends IdentifierDAO {
         }
     }
 
+    public function getByPartyId($partyId) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE PARTY_ID = :partyId');
+            $sql->execute([
+                'partyId' => $partyId
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            $returner = [];
+
+            foreach ($data as $session) {
+                $returner[] = $this->fetch($session);
+            }
+
+            return $returner;
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
+    public function getByToken($token) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE TOKEN = :token');
+            $sql->execute([
+                'token' => $token
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!$data["ID"]) {
+                return null;
+            }
+            return $this->fetch($data);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
     protected function fetch($data) {
         $sessionDTO = new SessionDTO();
 
