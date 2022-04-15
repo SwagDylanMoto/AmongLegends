@@ -31,6 +31,7 @@ include($base."code/dao/EndStatDAO.php");
 include($base."code/service/PartyService.php");
 include($base."code/service/SessionService.php");
 
+include($base."code/service/SessionManager.php");
 
 include($base."code/controller/AbstractController.php");
 

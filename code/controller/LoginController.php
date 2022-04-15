@@ -24,8 +24,6 @@ class LoginController extends Controller {
 
             $session = $this->sessionService->joinParty($_POST["nickname"], $party);
 
-            print_r($session);
-
             //header("Location: ".Config::$baseUrl."/party");
         }
 

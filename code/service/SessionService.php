@@ -4,10 +4,16 @@ class SessionService extends Singleton{
 
     private $sessionDAO;
 
+    private $sessionManager;
+
     function __construct(){
         parent::__construct();
 
         $this->sessionDAO = SingletonRegistry::$registry["SessionDAO"];
+    }
+
+    function init() {
+        $this->sessionManager = SingletonRegistry::$registry['SessionManager'];
     }
 
     public function getPartySessions($partyId) {
@@ -32,7 +38,15 @@ class SessionService extends Singleton{
         $sessionDTO->admin = $admin;
         $sessionDTO->token = $this->getNewToken($nickname);
 
-        return $this->sessionDAO->create($sessionDTO);
+        $sessionDTO = $this->sessionDAO->create($sessionDTO);
+
+        $this->sessionManager->createSession($sessionDTO);
+
+        return $sessionDTO;
+    }
+
+    public function getByToken($token) {
+        return $this->sessionDAO->getByToken($token);
     }
 
     private function getNewToken($code = "megasperm") {

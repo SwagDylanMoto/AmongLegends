@@ -22,6 +22,7 @@ class SessionDAO extends IdentifierDAO {
                 'admin' => $sessionDTO->admin
             ]);
             $sessionDTO->identifier = $this->db->lastInsertId();
+            return $sessionDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -46,6 +47,7 @@ class SessionDAO extends IdentifierDAO {
                 'admin' => $sessionDTO->admin,
                 'id' => $sessionDTO->identifier
             ]);
+            return $sessionDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }

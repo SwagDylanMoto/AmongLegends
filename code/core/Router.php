@@ -2,13 +2,18 @@
 
 class Router extends Singleton {
 
+    private $sessionManager;
+
     function __construct()
     {
         parent::__construct();
+        $this->sessionManager = SingletonRegistry::$registry['SessionManager'];
     }
 
     function process() {
         $request = SingletonRegistry::$registry['Request'];
+
+        $this->sessionManager->initSession();
 
         $controller = null;
         switch($request->page) {
@@ -26,6 +31,7 @@ class Router extends Singleton {
         }
         if ($controller) {
             $controller->process();
+            print_r($this->sessionManager->currentSessionDTO);
         }
     }
 }
