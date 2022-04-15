@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_WARNING);
+
 include($base.'Config.php');
 include($base.'code/core/SingletonRegistry.php');
 include($base.'code/core/AbstractSingleton.php');
