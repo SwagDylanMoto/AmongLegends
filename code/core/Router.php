@@ -22,16 +22,19 @@ class Router extends Singleton {
                 break;
             case("login"):
                 include(SingletonRegistry::$registry["Request"]->base."code/controller/LoginController.php");
-                $controller = SingletonRegistry::$registry["Controller"];
                 break;
             case("party"):
                 include(SingletonRegistry::$registry["Request"]->base."code/controller/PartyController.php");
-                $controller = SingletonRegistry::$registry["Controller"];
                 break;
+            case("logout"):
+                include(SingletonRegistry::$registry["Request"]->base."code/controller/Logout-Controller.php");
+                break;
+
         }
+        $controller = SingletonRegistry::$registry["Controller"];
+
         if ($controller) {
             $controller->process();
-            print_r($this->sessionManager->currentSessionDTO);
         }
     }
 }

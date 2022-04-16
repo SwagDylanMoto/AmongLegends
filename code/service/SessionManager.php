@@ -24,7 +24,8 @@ class SessionManager extends Singleton {
     public function initSession() {
         session_start();
         if ($_SESSION['token']) {
-            return $this->currentSessionDTO = $this->sessionService->getByToken($_SESSION['token']);
+            $this->currentSessionDTO = $this->sessionService->getByToken($_SESSION['token']);
+            return $this->currentSessionDTO;
         }
     }
 

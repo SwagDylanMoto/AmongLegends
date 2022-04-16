@@ -81,10 +81,13 @@ class SessionDAO extends IdentifierDAO {
             ]);
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-            if (!$data["ID"]) {
+            if (!$data) {
                 return null;
+            } elseif($data["ID"]) {
+                return $this->fetch($data);
+            } else {
+                return $this->fetch($data[0]);
             }
-            return $this->fetch($data);
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }

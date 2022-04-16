@@ -3,28 +3,22 @@
 class PartyController extends Controller{
 
     private $partyService;
+    private $sessionManager;
 
     function __construct() {
         parent::__construct();
 
         $this->partyService = SingletonRegistry::$registry["PartyService"];
+        $this->sessionManager = SingletonRegistry::$registry['SessionManager'];
     }
 
     public function process() {
-        if ($_POST["nickname"]) {
-            $partyCode = "";
-            if ($_GET["party"]) {
-                if ($this->partyService->getPartyActiveByCode($_GET["party"])) {
-                    $partyCode =  $_GET["party"];
-                }
-            }
-            if ($partyCode == "") {
-                print_r($this->partyService->createParty());
-            }
-            //header("Location: ".Config::$baseUrl."/game?party=".$partyCode);
+        if ($this->sessionManager->currentSessionDTO) {
+            $this->front();
+        } else {
+            header("Location: ".Config::$baseUrl."/login");
         }
 
-        $this->front();
     }
 
     private function front() {
@@ -34,3 +28,5 @@ class PartyController extends Controller{
         include($base.'code/front/footer.php');
     }
 }
+
+new PartyController();
