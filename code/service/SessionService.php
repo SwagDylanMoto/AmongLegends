@@ -45,6 +45,13 @@ class SessionService extends Singleton{
         return $sessionDTO;
     }
 
+    public function leaveParty() {
+        if ($this->sessionManager->currentSessionDTO) {
+            $this->sessionDAO->delete($this->sessionManager->currentSessionDTO->identifier);
+            $this->sessionManager->deleteSession();
+        }
+    }
+
     public function getByToken($token) {
         return $this->sessionDAO->getByToken($token);
     }
