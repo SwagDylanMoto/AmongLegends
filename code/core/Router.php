@@ -29,6 +29,9 @@ class Router extends Singleton {
             case("logout"):
                 include(SingletonRegistry::$registry["Request"]->base."code/controller/LogoutController.php");
                 break;
+            case("party/api"):
+                include(SingletonRegistry::$registry["Request"]->base."code/controller/PartyAPIController.php");
+                break;
 
         }
         $controller = SingletonRegistry::$registry["Controller"];

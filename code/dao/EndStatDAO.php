@@ -40,7 +40,7 @@ class EndStatDAO extends DAO {
             $sql->execute([
                 'gameId' => $gameId
             ]);
-            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $data = $sql->fetch(PDO::FETCH_ASSOC);
 
             $endStatDTO = new EndStatDTO();
             $endStatDTO->gameId = $data['GAME_ID'];

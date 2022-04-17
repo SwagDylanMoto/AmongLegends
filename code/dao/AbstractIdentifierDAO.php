@@ -28,7 +28,7 @@ abstract class IdentifierDAO extends DAO {
             $sql->execute([
                 'id' => $id
             ]);
-            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $data = $sql->fetch(PDO::FETCH_ASSOC);
 
             if (!$data["ID"]) {
                 return null;

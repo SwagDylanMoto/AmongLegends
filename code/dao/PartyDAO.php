@@ -61,7 +61,7 @@ class PartyDAO extends IdentifierDAO {
             $sql->execute([
                 'code' => $code
             ]);
-            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $data = $sql->fetch(PDO::FETCH_ASSOC);
 
             if (!$data["ID"]) {
                 return null;

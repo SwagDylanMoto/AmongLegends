@@ -16,6 +16,9 @@ include($base."code/dto/GameSessionDTO.php");
 include($base."code/dto/EndVoteDTO.php");
 include($base."code/dto/EndStatDTO.php");
 
+include($base."code/dto/partyAPI/PartyWorkflowDTO.php");
+include($base."code/dto/partyAPI/PartyLobby.php");
+
 
 include($base.'code/dao/AbstractDAO.php');
 include($base.'code/dao/AbstractIdentifierDAO.php');

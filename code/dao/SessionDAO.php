@@ -79,7 +79,7 @@ class SessionDAO extends IdentifierDAO {
             $sql->execute([
                 'token' => $token
             ]);
-            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $data = $sql->fetch(PDO::FETCH_ASSOC);
 
             if (!$data) {
                 return null;
