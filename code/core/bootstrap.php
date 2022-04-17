@@ -6,6 +6,9 @@ include($base.'code/core/SingletonRegistry.php');
 include($base.'code/core/AbstractSingleton.php');
 
 
+include($base."code/constant/PartyStatut.php");
+
+
 include($base.'code/dto/AbstractDTO.php');
 include($base.'code/dto/AbstractIdentifierDTO.php');
 

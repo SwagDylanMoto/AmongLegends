@@ -7,9 +7,9 @@ abstract class IdentifierDAO extends DAO {
         parent::__construct();
     }
 
-    abstract public function create($partyDTO);
+    abstract public function create($identifierDTO);
 
-    abstract public function update($partyDTO);
+    abstract public function update($identifierDTO);
 
     public function delete($identifierDTO) {
         try {

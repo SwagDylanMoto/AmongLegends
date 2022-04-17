@@ -14,3 +14,5 @@ class PartyStatut extends Singleton {
         "EndGame"
     ];
 }
+
+new PartyStatut();
