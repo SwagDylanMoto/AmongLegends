@@ -34,8 +34,11 @@ include($base."code/dao/EndVoteDAO.php");
 include($base."code/dao/EndStatDAO.php");
 
 
+include($base."code/service/AbstractIdentifierService.php");
+
 include($base."code/service/PartyService.php");
 include($base."code/service/SessionService.php");
+include($base."code/service/GameService.php");
 
 include($base."code/service/SessionManager.php");
 

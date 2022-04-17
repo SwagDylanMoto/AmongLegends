@@ -1,15 +1,13 @@
 <?php
 
-class SessionService extends Singleton{
-
-    private $sessionDAO;
+class SessionService extends IdentifierService {
 
     private $sessionManager;
 
     function __construct(){
         parent::__construct();
 
-        $this->sessionDAO = SingletonRegistry::$registry["SessionDAO"];
+        $this->DAO = SingletonRegistry::$registry["SessionDAO"];
     }
 
     function init() {
@@ -17,7 +15,7 @@ class SessionService extends Singleton{
     }
 
     public function getPartySessions($partyId) {
-        return $this->sessionDAO->getByPartyId($partyId);
+        return $this->DAO->getByPartyId($partyId);
     }
 
     public function joinParty($nickname, $partyDTO) {
@@ -38,7 +36,7 @@ class SessionService extends Singleton{
         $sessionDTO->admin = $admin;
         $sessionDTO->token = $this->getNewToken($nickname);
 
-        $sessionDTO = $this->sessionDAO->create($sessionDTO);
+        $sessionDTO = $this->DAO->create($sessionDTO);
 
         $this->sessionManager->createSession($sessionDTO);
 
@@ -47,20 +45,20 @@ class SessionService extends Singleton{
 
     public function leaveParty() {
         if ($this->sessionManager->currentSessionDTO) {
-            $this->sessionDAO->delete($this->sessionManager->currentSessionDTO->identifier);
+            $this->DAO->delete($this->sessionManager->currentSessionDTO->identifier);
             $this->sessionManager->deleteSession();
         }
     }
 
     public function getByToken($token) {
-        return $this->sessionDAO->getByToken($token);
+        return $this->DAO->getByToken($token);
     }
 
     private function getNewToken($code = "megasperm") {
         $hashtext = rand() . $code;
         $hash = hash('sha256', $hashtext);
 
-        if ($this->sessionDAO->getByToken($hash)) {
+        if ($this->DAO->getByToken($hash)) {
             return $this->getNewToken($code);
         } else {
             return $hash;

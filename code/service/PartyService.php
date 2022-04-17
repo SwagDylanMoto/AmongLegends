@@ -1,17 +1,15 @@
 <?php
 
-class PartyService extends Singleton {
-
-    private $partyDAO;
+class PartyService extends IdentifierService {
 
     function __construct(){
         parent::__construct();
 
-        $this->partyDAO = SingletonRegistry::$registry["PartyDAO"];
+        $this->DAO = SingletonRegistry::$registry["PartyDAO"];
     }
 
     public function getPartyActiveByCode($code) {
-        $party = $this->partyDAO->getByCode($code);
+        $party = $this->DAO->getByCode($code);
         if ($party and $party->active) {
             return $party;
         }
@@ -31,7 +29,7 @@ class PartyService extends Singleton {
         $party->code = $code;
         $party->active = true;
 
-        $this->partyDAO->create($party);
+        $this->DAO->create($party);
 
         return $party;
     }

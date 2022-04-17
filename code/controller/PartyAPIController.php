@@ -2,10 +2,10 @@
 
 class PartyAPIController extends Controller {
 
-    private $sessionManager;
-    private $sessionService;
-    private $partyService;
-    private $gameService;
+    private SessionManager $sessionManager;
+    private SessionService $sessionService;
+    private PartyService $partyService;
+    private GameService $gameService;
 
     function __construct() {
         parent::__construct();
@@ -32,7 +32,7 @@ class PartyAPIController extends Controller {
 
             if(!$currentGameDTO) {
                 $partyWorkflowDTO->state = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum[0];//Lobby
-                $partyWorkflowDTO->data = new PartyLobbyDTO();
+                $partyWorkflowDTO->data = $this->getPartyLobbyDTO($currentPartyDTO);
             } else {
 
             }
@@ -48,6 +48,23 @@ class PartyAPIController extends Controller {
             $this->error("NO_SESSION");
 
         }
+    }
+
+    private function getPartyLobbyDTO($currentPartyDTO) {
+        $partyLobbyDTO = new PartyLobbyDTO();
+
+        $sessions = $this->sessionService->getPartySessions($currentPartyDTO->identifier);
+        foreach($sessions as $session) {
+            $userDTO = new PartyLobbyDTO\UserDTO();
+
+            $userDTO->nickname = $session->nickname;
+            $userDTO->admin = $session->admin;
+            $userDTO->points = $session->points;
+
+            $partyLobbyDTO->userList[] = $userDTO;
+        }
+
+        return $partyLobbyDTO;
     }
 
     private function json($object) {

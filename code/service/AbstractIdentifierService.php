@@ -2,7 +2,7 @@
 
 abstract class IdentifierService extends Singleton {
 
-    private IdentifierDAO $DAO;
+    protected IdentifierDAO $DAO;
 
     public function get($identifier) {
         return $this->DAO->get($identifier);
