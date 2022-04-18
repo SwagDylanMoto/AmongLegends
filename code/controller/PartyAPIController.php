@@ -61,6 +61,10 @@ class PartyAPIController extends Controller {
             $userDTO->admin = $session->admin;
             $userDTO->points = $session->points;
 
+            if($this->sessionManager->currentSessionDTO->admin) {
+                $userDTO->id = $session->identifier;
+            }
+
             $partyLobbyDTO->userList[] = $userDTO;
         }
 

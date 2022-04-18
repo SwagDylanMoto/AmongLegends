@@ -3,6 +3,7 @@ import { lobbyPage } from './page/lobby.js';
 
 let status = null;
 
+process();
 setInterval(process, 5000);
 
 async function process() {

@@ -15,5 +15,7 @@ namespace PartyLobbyDTO {
         public $points = 0;
 
         public $admin = false;
+
+        public $id = null;
     }
 }

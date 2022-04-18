@@ -9,7 +9,9 @@
         )
         ?></p>
 </div>
-<div id="page-content">
+<div id="page-content"
+     nickname="<?php echo(SingletonRegistry::$registry['SessionManager']->currentSessionDTO->nickname) ?>"
+     admin="<?php echo(SingletonRegistry::$registry['SessionManager']->currentSessionDTO->admin ? 'true' : 'false') ?>">
 
 </div>
 <script type="module" src="<?php echo(Config::$baseUrl) ?>/resources/js/party/main.js"></script>
