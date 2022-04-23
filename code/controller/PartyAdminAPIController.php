@@ -68,7 +68,7 @@ class PartyAdminAPIController extends Controller {
 
     private function kickSession($id) {
         $session = $this->sessionService->get($id);
-        if ($session) {
+        if ($session && !$session->admin) {
             $this->sessionService->delete($session);
         } else {
             $this->error('WRONG_PARAMETER');

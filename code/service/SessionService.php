@@ -2,7 +2,8 @@
 
 class SessionService extends IdentifierService {
 
-    private $sessionManager;
+    private SessionManager $sessionManager;
+    private PartyService $partyService;
 
     function __construct(){
         parent::__construct();
@@ -12,6 +13,7 @@ class SessionService extends IdentifierService {
 
     function init() {
         $this->sessionManager = SingletonRegistry::$registry['SessionManager'];
+        $this->partyService = SingletonRegistry::$registry['PartyService'];
     }
 
     public function getPartySessions($partyId) {
@@ -23,6 +25,11 @@ class SessionService extends IdentifierService {
 
         $admin = true;
         $partySessions = $this->getPartySessions($partyDTO->identifier);
+
+        if (count($partySessions) >= 5) {
+            return null;
+        }
+
         foreach ($partySessions as $partySession) {
             if ($partySession->admin) {
                 $admin = false;
@@ -45,8 +52,30 @@ class SessionService extends IdentifierService {
 
     public function leaveParty() {
         if ($this->sessionManager->currentSessionDTO) {
-            $this->DAO->delete($this->sessionManager->currentSessionDTO->identifier);
+            $partyId = $this->sessionManager->currentSessionDTO->partiId;
+
+            $this->delete($this->sessionManager->currentSessionDTO);
             $this->sessionManager->deleteSession();
+
+            $partySessions = $this->getPartySessions($partyId);
+            if($partySessions) {
+                $admin = false;
+                foreach ($partySessions as $partySession) {
+                    if ($partySession->admin) {
+                        $admin = true;
+                        break;
+                    }
+                }
+                if (!$admin) {
+                    $partySessions[0]->admin = true;
+                    $this->update($partySession[0]);
+                }
+            } else {
+                $party = $this->partyService->get($partyId);
+                if ($party) {
+                    $this->partyService->delete($party);
+                }
+            }
         }
     }
 

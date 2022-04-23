@@ -2,8 +2,8 @@
 
 class LoginController extends Controller {
 
-    private $partyService;
-    private $sessionService;
+    private PartyService $partyService;
+    private SessionService $sessionService;
 
     function __construct() {
         parent::__construct();
