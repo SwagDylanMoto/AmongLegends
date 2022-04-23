@@ -7,7 +7,7 @@ class LobbyPage extends AbstractPage {
         super();
     }
 
-    process($data) {
+    process(data) {
         this.contentDiv.innerHTML = '';
 
         const header = document.createElement('p');
@@ -17,7 +17,7 @@ class LobbyPage extends AbstractPage {
 
         const userContainer = document.createElement('div');
 
-        $data.userList.forEach( user => {
+        data.userList.forEach( user => {
                 const newEl = document.createElement('p');
                 newEl.appendChild(document.createTextNode(user.points + ' pts - ' + user.nickname + (user.admin != 0 ? ' - Admin' : '')));
 
@@ -34,16 +34,29 @@ class LobbyPage extends AbstractPage {
             }
         );
 
+        if (this.session.admin) {
+            const gameContainer = document.createElement('div');
+
+            const startGameButton = document.createElement('button');
+            startGameButton.onclick = startGame;
+            if (data.userList.length < 5) {
+                startGameButton.disabled = true;
+            }
+            startGameButton.appendChild(document.createTextNode('Start game'));
+        }
+
         this.contentDiv.appendChild(userContainer);
     }
 }
 
 function kickSession(e) {
     const sessionId = e.target.getAttribute('sessionId');
-
     api.kickSession(sessionId);
-
     e.target.disabled = true;
+}
+
+function startGame(e) {
+    api.startGame();
 }
 
 export const lobbyPage = new LobbyPage();

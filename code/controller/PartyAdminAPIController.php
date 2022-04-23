@@ -38,6 +38,13 @@ class PartyAdminAPIController extends Controller {
                         $this->error('WRONG_PARAMETER');
                     }
                     break;
+                case("startGame"):
+                    if ($currentGameDTO) {
+                        $this->error('WRONG_STATUS');
+                    } else {
+                        $this->startGame();
+                    }
+                    break;
                 default:
                     $this->error("WRONG_ACTION");
                     break;
@@ -75,6 +82,10 @@ class PartyAdminAPIController extends Controller {
         }
     }
 
+    private function startGame() {
+        //Créer une game
+    }
+
     private function ok() {
         echo('Ok');
     }
@@ -105,6 +116,10 @@ class PartyAdminAPIController extends Controller {
             case("WRONG_PARAMETER"):
                 header('HTTP/1.0 400 Bad Request');
                 echo 'Mauvais paramètres';
+                break;
+            case("WRONG_STATUS"):
+                header('HTTP/1.0 400 Bad Request');
+                echo 'Mauvais statut de partie';
                 break;
             default:
                 header('HTTP/1.0 400 Bad Request');
