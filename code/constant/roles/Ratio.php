@@ -21,6 +21,10 @@ class Ratio extends Role implements RoleCalculation {
 
         return $points;
     }
+
+    public function getRoleAddInfos() {
+        return null;
+    }
 }
 
 new Ratio();

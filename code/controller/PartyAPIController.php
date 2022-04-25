@@ -6,6 +6,7 @@ class PartyAPIController extends Controller {
     private SessionService $sessionService;
     private PartyService $partyService;
     private GameService $gameService;
+    private GameSessionService  $gameSessionService;
     private $partyStatutEnum;
 
     function __construct() {
@@ -15,6 +16,7 @@ class PartyAPIController extends Controller {
         $this->sessionService = SingletonRegistry::$registry["SessionService"];
         $this->partyService = SingletonRegistry::$registry["PartyService"];
         $this->gameService = SingletonRegistry::$registry["GameService"];
+        $this->gameSessionService = SingletonRegistry::$registry["GameSessionService"];
         $this->partyStatutEnum = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum;
     }
 
@@ -38,7 +40,7 @@ class PartyAPIController extends Controller {
             } elseif($currentGameDTO->statut === $this->partyStatutEnum[1]) { //InGame
                 $partyWorkflowDTO->state = $this->partyStatutEnum[1];
                 if($_GET['maxiData']) {
-                    //TODO data
+                    $partyWorkflowDTO->data = $this->getGameInGameDTO($currentSessionDTO, $currentGameDTO);
                 }
             }
 
@@ -74,6 +76,17 @@ class PartyAPIController extends Controller {
         }
 
         return $partyLobbyDTO;
+    }
+
+    private function getGameInGameDTO($currentSessionDTO, $currentGameDTO) {
+        $gameInGameDTO = new GameInGameDTO();
+
+        $gameSession = $this->gameSessionService->getBySessionAndGame($currentSessionDTO->identifier, $currentGameDTO->identifier);
+
+        $gameInGameDTO->role = $gameSession->role;
+        $gameInGameDTO->roleAddInfos = $gameSession->roleAddInfos;
+
+        return $gameInGameDTO;
     }
 
     private function json($object) {

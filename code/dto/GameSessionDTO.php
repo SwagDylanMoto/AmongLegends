@@ -8,6 +8,8 @@ class GameSessionDTO extends IdentifierDTO {
 
     public $role;
 
+    public $roleAddInfos;
+
     public $points;
 
     public $voted;

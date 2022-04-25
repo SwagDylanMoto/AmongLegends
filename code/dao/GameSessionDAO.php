@@ -51,6 +51,28 @@ class GameSessionDAO extends IdentifierDAO {
         }
     }
 
+    public function getBySessionAndGame($sessionId, $gameId) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE SESSION_ID = :sessionId AND GAME_ID = :gameId');
+            $sql->execute([
+                'sessionId' => $sessionId,
+                'gameId' => $gameId
+            ]);
+            $data = $sql->fetch(PDO::FETCH_ASSOC);
+
+            if (!$data) {
+                return null;
+            } elseif($data["ID"]) {
+                return $this->fetch($data);
+            } else {
+                return $this->fetch($data[0]);
+            }
+            return $this->fetch($data);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
     protected function fetch($data) {
         $gameSessionDTO = new GameSessionDTO();
 

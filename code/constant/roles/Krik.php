@@ -20,6 +20,10 @@ class Krik extends Role implements RoleCalculation {
 
         return $points;
     }
+
+    public function getRoleAddInfos() {
+        return null;
+    }
 }
 
 new Krik();

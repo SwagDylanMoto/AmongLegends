@@ -8,6 +8,10 @@ class GameSessionService extends IdentifierService {
         $this->DAO = SingletonRegistry::$registry["GameSessionDAO"];
     }
 
+    public function getBySessionAndGame($sessionId, $gameId) {
+        return $this->getBySessionAndGame($sessionId, $gameId);
+    }
+
     public function generateGameSessions($sessionIdList, $roleList, $gameId) {
         if (count($sessionIdList) !== count($roleList)) {
             throw new Exception();
@@ -23,6 +27,7 @@ class GameSessionService extends IdentifierService {
             $newGameSession->sessionId = $sessionId;
             $newGameSession->gameId = $gameId;
             $newGameSession->role = $roleList[$roleI];
+            $newGameSession->roleAddInfos = SingletonRegistry::$registry['Role::'.$roleList[$roleI]]->getRoleAddInfos();
             $newGameSession->points = 0;
             $newGameSession->voted = false;
 

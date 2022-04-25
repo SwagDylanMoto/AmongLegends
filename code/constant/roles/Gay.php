@@ -21,6 +21,22 @@ class Gay extends Role implements RoleCalculation {
 
         return $points;
     }
+
+    public function getRoleAddInfos()
+    {
+        $currentSession = SingletonRegistry::$registry['SessionManager']->currentSessionDTO;
+        $partySessions = SingletonRegistry::$registry['SessionService']->getPartySessions($currentSession->partyId);
+
+        $nicknames = [];
+
+        foreach ($partySessions as $partySession) {
+            if ($partySession->identifier !== $currentSession->identifier) {
+                $nicknames[] = $partySession->nickname;
+            }
+        }
+
+        return $nicknames[rand(0, count($nicknames)-1)];
+    }
 }
 
 new Gay();
