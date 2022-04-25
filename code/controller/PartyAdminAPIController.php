@@ -6,6 +6,7 @@ class PartyAdminAPIController extends Controller {
     private SessionService $sessionService;
     private PartyService $partyService;
     private GameService $gameService;
+    private GameSessionService $gameSessionService;
 
     private $error = false;
 
@@ -16,6 +17,7 @@ class PartyAdminAPIController extends Controller {
         $this->sessionService = SingletonRegistry::$registry["SessionService"];
         $this->partyService = SingletonRegistry::$registry["PartyService"];
         $this->gameService = SingletonRegistry::$registry["GameService"];
+        $this->gameSessionService = SingletonRegistry::$registry["GameSessionService"];
     }
 
     public function process() {
@@ -85,15 +87,28 @@ class PartyAdminAPIController extends Controller {
     private function startGame(PartyDTO $currentPartyDTO) {
         $partySessions =$this->sessionService->getPartySessions($currentPartyDTO->identifier);
 
-        if (count($partySessions) < 5) {
+        if (count($partySessions) != 5) {
             $this->error();
         }
 
         if (!$this->error) {
             $currentGameDTO = $this->gameService->startNewGame($currentPartyDTO->identifier);
             $currentPartyDTO->activeGameId = $currentGameDTO->identifier;
+            $this->partyService->update($currentPartyDTO);
 
-            //générer les gameSessions
+            $partySessionIds = [];
+            foreach ($partySessions as $partySession) {
+                $partySessionIds[] = $partySession->identifier;
+            }
+            $roles = [];//Dans un nouveau array car on va le modifier et les array sont passé par ref.
+            foreach (SingletonRegistry::$registry["Roles"]->rolesEnum as $role) {
+                $roles[] = $role;
+            }
+            try {
+                $gameSessions = $this->gameSessionService->generateGameSessions($partySessionIds, $roles, $currentGameDTO->identifier);
+            } catch(Exception $e) {
+                $this->error();
+            }
         }
     }
 

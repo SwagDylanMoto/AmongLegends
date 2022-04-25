@@ -6,6 +6,7 @@ class PartyAPIController extends Controller {
     private SessionService $sessionService;
     private PartyService $partyService;
     private GameService $gameService;
+    private $partyStatutEnum;
 
     function __construct() {
         parent::__construct();
@@ -14,6 +15,7 @@ class PartyAPIController extends Controller {
         $this->sessionService = SingletonRegistry::$registry["SessionService"];
         $this->partyService = SingletonRegistry::$registry["PartyService"];
         $this->gameService = SingletonRegistry::$registry["GameService"];
+        $this->partyStatutEnum = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum;
     }
 
     public function process() {
@@ -31,10 +33,13 @@ class PartyAPIController extends Controller {
             $partyWorkflowDTO = new PartyWorkflowDTO();
 
             if(!$currentGameDTO) {
-                $partyWorkflowDTO->state = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum[0];//Lobby
+                $partyWorkflowDTO->state = $this->partyStatutEnum[0];//Lobby
                 $partyWorkflowDTO->data = $this->getPartyLobbyDTO($currentPartyDTO);
-            } else {
-
+            } elseif($currentGameDTO->statut === $this->partyStatutEnum[1]) { //InGame
+                $partyWorkflowDTO->state = $this->partyStatutEnum[1];
+                if($_GET['maxiData']) {
+                    //TODO data
+                }
             }
 
             $this->json($partyWorkflowDTO);
