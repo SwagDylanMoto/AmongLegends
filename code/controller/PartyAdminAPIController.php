@@ -42,7 +42,7 @@ class PartyAdminAPIController extends Controller {
                     if ($currentGameDTO) {
                         $this->error('WRONG_STATUS');
                     } else {
-                        $this->startGame();
+                        $this->startGame($currentPartyDTO);
                     }
                     break;
                 default:
@@ -82,15 +82,29 @@ class PartyAdminAPIController extends Controller {
         }
     }
 
-    private function startGame() {
-        //Créer une game
+    private function startGame(PartyDTO $currentPartyDTO) {
+        $partySessions =$this->sessionService->getPartySessions($currentPartyDTO->identifier);
+
+        if (count($partySessions) < 5) {
+            $this->error();
+        }
+
+        if (!$this->error) {
+            $currentGameDTO = $this->gameService->startNewGame($currentPartyDTO->identifier);
+            $currentPartyDTO->activeGameId = $currentGameDTO->identifier;
+
+            //générer les gameSessions
+        }
     }
 
     private function ok() {
         echo('Ok');
     }
 
-    private function error($error_code) {
+    private function error($error_code = 'default') {
+        if ($this->error) {
+            return;
+        }
         $this->error = true;
         switch($error_code) {
             case("NO_SESSION"):

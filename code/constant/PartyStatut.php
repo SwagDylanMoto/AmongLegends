@@ -10,6 +10,7 @@ class PartyStatut extends Singleton {
     public $partyStatutEnum = [
         "Lobby",
         "InGame",
+        "EndStat",
         "Voting",
         "EndGame"
     ];
