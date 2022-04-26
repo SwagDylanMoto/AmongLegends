@@ -18,7 +18,7 @@ async function process() {
         case 'InGame':
             if (status !== 'InGame') {
                 const responseWithData = await api.refresh(true);
-                if (responseWithData.status === 'InGame' && responseWithData.data != null) {
+                if (responseWithData.state === 'InGame' && responseWithData.data != null) {
                     inGamePage.process(responseWithData.data);
                 }
             }
