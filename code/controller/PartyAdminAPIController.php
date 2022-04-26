@@ -104,11 +104,8 @@ class PartyAdminAPIController extends Controller {
             foreach (SingletonRegistry::$registry["Roles"]->rolesEnum as $role) {
                 $roles[] = $role;
             }
-            try {
-                $gameSessions = $this->gameSessionService->generateGameSessions($partySessionIds, $roles, $currentGameDTO->identifier);
-            } catch(Exception $e) {
-                $this->error();
-            }
+
+            $gameSessions = $this->gameSessionService->generateGameSessions($partySessionIds, $roles, $currentGameDTO->identifier);
         }
     }
 

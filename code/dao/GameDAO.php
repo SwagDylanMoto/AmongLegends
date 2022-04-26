@@ -20,6 +20,7 @@ class GameDAO extends IdentifierDAO {
                 'type' => $gameDTO->type
             ]);
             $gameDTO->identifier = $this->db->lastInsertId();
+            return $gameDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -40,6 +41,7 @@ class GameDAO extends IdentifierDAO {
                 'type' => $gameDTO->type,
                 'id' => $gameDTO->identifier
             ]);
+            return $gameDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }

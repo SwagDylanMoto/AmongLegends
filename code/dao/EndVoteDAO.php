@@ -20,6 +20,7 @@ class EndVoteDAO extends IdentifierDAO {
                 'votedGSId' => $endVoteDTO->votedGSId
             ]);
             $endVoteDTO->identifier = $this->db->lastInsertId();
+            return $endVoteDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -40,6 +41,7 @@ class EndVoteDAO extends IdentifierDAO {
                 'votedGSId' => $endVoteDTO->votedGSId,
                 'id' => $endVoteDTO->identifier
             ]);
+            return $endVoteDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }

@@ -7,13 +7,7 @@ class Roles extends Singleton {
         parent::__construct();
     }
 
-    public $rolesEnum = [
-        "Sussy baka",
-        "RATIO",
-        "Krik",
-        "Gay",
-        "Sasuke"
-    ];
+    public $rolesEnum = [];
 }
 
 new Roles();

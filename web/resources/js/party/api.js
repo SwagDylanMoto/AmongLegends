@@ -2,8 +2,11 @@ import { baseUrl } from '../config.js';
 
 class API {
 
-     async refresh() {
-        const url = baseUrl + '/party/api.php';
+     async refresh(data = false) {
+        let url = baseUrl + '/party/api.php';
+        if (data) {
+            url += '?maxiData=true';
+        }
         const xhttp = new XMLHttpRequest();
 
         xhttp.open('GET', url, false);

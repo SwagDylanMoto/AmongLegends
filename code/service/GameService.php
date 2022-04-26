@@ -21,7 +21,7 @@ class GameService extends IdentifierService {
         $newGame->statut = $this->partyStatutEnum[1];//InGame
         $newGame->type = SingletonRegistry::$registry["GameType"]->gameTypeEnum[0];
 
-        return $newGame = $this->create($newGame);
+        return $this->create($newGame);
     }
 
 }

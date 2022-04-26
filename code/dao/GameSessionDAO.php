@@ -11,17 +11,19 @@ class GameSessionDAO extends IdentifierDAO {
     public function create($gameSessionDTO) {
         try {
             $sql = $this->db->prepare(
-                'INSERT INTO '.$this->tableName.' (GAME_ID , POINTS , ROLE , SESSION_ID , VOTED) 
-                VALUES (:gameId , :points , :role , :sessionId , :voted)'
+                'INSERT INTO '.$this->tableName.' (GAME_ID , POINTS , ROLE , ROLE_ADD_INFO , SESSION_ID , VOTED) 
+                VALUES (:gameId , :points , :role , :roleAddInfos , :sessionId , :voted)'
             );
             $sql->execute([
                 'gameId' => $gameSessionDTO->gameId,
                 'points' => $gameSessionDTO->points,
                 'role' => $gameSessionDTO->role,
+                'roleAddInfos' => $gameSessionDTO->roleAddInfos,
                 'sessionId' => $gameSessionDTO->sessionId,
                 'voted' => $gameSessionDTO->voted
             ]);
             $gameSessionDTO->identifier = $this->db->lastInsertId();
+            return $gameSessionDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -34,6 +36,7 @@ class GameSessionDAO extends IdentifierDAO {
                 GAME_ID = :gameId , 
                 POINTS = :points , 
                 ROLE = :role , 
+                ROLE_ADD_INFO = :roleAddInfos , 
                 SESSION_ID = :sessionId , 
                 VOTED = :voted 
                 WHERE ID = :id'
@@ -42,10 +45,12 @@ class GameSessionDAO extends IdentifierDAO {
                 'gameId' => $gameSessionDTO->gameId,
                 'points' => $gameSessionDTO->points,
                 'role' => $gameSessionDTO->role,
+                'roleAddInfos' => $gameSessionDTO->roleAddInfos,
                 'sessionId' => $gameSessionDTO->sessionId,
                 'voted' => $gameSessionDTO->voted,
                 'id' => $gameSessionDTO->identifier
             ]);
+            return $gameSessionDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -80,6 +85,7 @@ class GameSessionDAO extends IdentifierDAO {
         $gameSessionDTO->gameId = $data['GAME_ID'];
         $gameSessionDTO->points = $data['POINTS'];
         $gameSessionDTO->role = $data['ROLE'];
+        $gameSessionDTO->roleAddInfos = $data['ROLE_ADD_INFO'];
         $gameSessionDTO->sessionId = $data['SESSION_ID'];
         $gameSessionDTO->voted = $data['VOTED'];
 

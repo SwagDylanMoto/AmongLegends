@@ -14,6 +14,7 @@ class EndStatDAO extends DAO {
             $sql->execute([
                 'gameId' => $endStatDTO->gameId
             ]);
+            return $endStatDTO;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }

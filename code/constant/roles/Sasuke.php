@@ -22,7 +22,7 @@ class Sasuke extends Role implements RoleCalculation {
         return $points;
     }
 
-    public function getRoleAddInfos()
+    public function getRoleAddInfos($sessionId)
     {
         $ennemies = [
             'Toplaner',
