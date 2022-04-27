@@ -1,3 +1,58 @@
+.role-page {
+  width: 70%;
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  background-color: #36393f;
+  border-radius: 5px;
+}
+.role-page .role-header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+}
+.role-page .role-header .role-header-img {
+  height: 500px;
+  width: auto;
+  max-width: 70%;
+}
+.role-page .role-header .role-header-text {
+  margin-left: 5em;
+  padding-top: 2em;
+}
+.role-page .role-header .role-header-text .role-header-text-title {
+  margin-bottom: 10px;
+  color: #f8f8ff;
+  font-weight: bold;
+  font-size: 60px;
+}
+.role-page .role-header .role-header-text .role-header-text-subtitle {
+  margin: 0;
+  font-weight: bold;
+  font-size: 30px;
+}
+.role-page .role-description {
+  background-color: #40444b;
+  border-radius: 5px;
+  padding: 1em;
+}
+.role-page .role-description p {
+  font-size: 20px;
+  line-height: 30px;
+  margin: 0;
+}
+.role-page .role-description p .highlight {
+  padding: 0 0.5em;
+  background-color: #49443c;
+  color: #faa81a;
+}
+.role-page .role-end-game {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
 .lobby-page {
   background-color: #36393f;
   border-radius: 5px;

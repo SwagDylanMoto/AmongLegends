@@ -11,22 +11,28 @@ class InGamePage extends AbstractPage {
         this.contentDiv.innerHTML = '';
 
         const roleData = this.roles[data.role];
-        roleData.description = roleData.description.replace('###', data.roleAddInfos);
+        roleData.description = roleData.description.replace('###', data.roleAddInfos).replace('###', data.roleAddInfos);
 
         const roleContainer = document.createElement('div');
+        roleContainer.className = 'role-page';
 
 
         const roleContainerHeader = document.createElement('div');
+        roleContainerHeader.className = 'role-header';
 
         const roleContainerImg = document.createElement('img');
+        roleContainerImg.className = 'role-header-img';
         roleContainerImg.src = roleData.img;
         roleContainerHeader.appendChild(roleContainerImg);
 
         const roleContainerTitleContainer = document.createElement('div');
+        roleContainerTitleContainer.className = 'role-header-text';
         const roleContainerTitle = document.createElement('p');
+        roleContainerTitle.className = 'role-header-text-title';
         roleContainerTitle.appendChild(document.createTextNode(roleData.title));
         roleContainerTitleContainer.appendChild(roleContainerTitle);
         const roleContainerSubtitle = document.createElement('p');
+        roleContainerSubtitle.className = 'role-header-text-subtitle';
         roleContainerSubtitle.appendChild(document.createTextNode(roleData.subtitle));
         roleContainerTitleContainer.appendChild(roleContainerSubtitle);
         roleContainerHeader.appendChild(roleContainerTitleContainer);
@@ -35,13 +41,26 @@ class InGamePage extends AbstractPage {
 
 
         const roleContainerContent = document.createElement('div');
+        roleContainerContent.className = 'role-description';
 
         const roleContainerContentDescription = document.createElement('p');
-        roleContainerContentDescription.appendChild(document.createTextNode(roleData.description));
+        roleContainerContentDescription.innerHTML = roleData.description;
         roleContainerContent.appendChild(roleContainerContentDescription);
 
         roleContainer.appendChild(roleContainerContent);
 
+        if (this.session.admin === 'true') {
+            const endGameContainer = document.createElement('div');
+            endGameContainer.className = 'role-end-game';
+
+            const endGameButton = document.createElement('button');
+            endGameButton.className = 'button';
+            endGameButton.onclick = endGame;
+            endGameButton.appendChild(document.createTextNode('Partie finie !'));
+            endGameContainer.appendChild(endGameButton);
+
+            roleContainer.appendChild(endGameContainer);
+        }
 
         this.contentDiv.appendChild(roleContainer);
     }
@@ -51,7 +70,7 @@ class InGamePage extends AbstractPage {
             img: './resources/img/roles/Gay.png',
             title: 'Gay',
             subtitle: 'Roméo',
-            description: 'Tu es aveuglé par l\'amour (super gay) que tu ressens pour ### .' +
+            description: 'Tu es aveuglé par l\'amour (super gay) que tu ressens pour <span class="highlight">###</span> .' +
                 ' Tu dois gagner la partie sans prendre un seul kill à ton amour,' +
                 ' et en mourant pour lui à chaque fois que lui meurt.'
         },
@@ -76,8 +95,9 @@ class InGamePage extends AbstractPage {
             img: './resources/img/roles/Sasuke.png',
             title: 'Sasuke',
             subtitle: 'Trop dark',
-            description: 'Tu n\'as pas d\'amis ni de passion, ton seul objectif et de tuer ### pour ton clan.' +
-                ' Tu dois gagner la partie en focusant ###.' +
+            description: 'Tu n\'as pas d\'amis ni de passion, ton seul objectif et de tuer ' +
+                '<span class="highlight">###</span> pour ton venger clan.' +
+                ' Tu dois gagner la partie en focusant uniquement <span class="highlight">###</span>.' +
                 ' Tu tues les autres ennemis seulement si ta cible est déjà morte ou qu\'un ennemis te bloque.'
         },
 
@@ -85,9 +105,12 @@ class InGamePage extends AbstractPage {
             img: './resources/img/roles/SussyBaka.png',
             title: 'Sussy Baka',
             subtitle: 'Imposteur',
-            description: 'Uh oh !! Ton rôle est de perdre mais sans se faire voter imposteur (Sussy Baka). Bonne chance.'
+            description: 'Uh oh !! Ton but est de perdre mais sans te faire voter imposteur (Sussy Baka). Bonne chance.'
         }
     }
+}
+
+function endGame(e) {
 }
 
 export const inGamePage = new InGamePage();

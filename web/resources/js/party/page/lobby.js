@@ -58,7 +58,7 @@ class LobbyPage extends AbstractPage {
                     kickButton.className = 'button cancel';
                     kickButton.setAttribute('sessionId', user.id);
                     kickButton.onclick = kickSession;
-                    kickButton.appendChild(document.createTextNode('Kick'));
+                    kickButton.appendChild(document.createTextNode('Ratio'));
 
                     newEl.appendChild(kickButton);
                 }
@@ -79,7 +79,7 @@ class LobbyPage extends AbstractPage {
             if (data.userList.length < 5) {
                 startGameButton.disabled = true;
             }
-            startGameButton.appendChild(document.createTextNode('Start game'));
+            startGameButton.appendChild(document.createTextNode('Commencer la partie'));
 
             gameContainer.appendChild(startGameButton);
 

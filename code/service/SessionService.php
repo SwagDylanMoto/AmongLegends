@@ -23,13 +23,16 @@ class SessionService extends IdentifierService {
     public function joinParty($nickname, $partyDTO) {
         $sessionDTO = new SessionDTO();
 
-        $admin = true;
         $partySessions = $this->getPartySessions($partyDTO->identifier);
 
-        if (count($partySessions) >= 5) {
+        //On ne rejoint pas de party :
+        // - Qui est full (5 sessions max)
+        // - Qui est en game (activeGameId existant)
+        if ($partyDTO->activeGameId !== null || count($partySessions) >= 5) {
             return null;
         }
 
+        $admin = true;
         foreach ($partySessions as $partySession) {
             if ($partySession->admin) {
                 $admin = false;
