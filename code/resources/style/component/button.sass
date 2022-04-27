@@ -1,4 +1,5 @@
 .button
+  font-family: "Microsoft Sans Serif", serif
   border: unset
   cursor: pointer
   padding: 0.5em 1em
@@ -17,3 +18,11 @@
 
 .button.cancel:hover
   background-color: $hover-cancel
+
+.button:disabled
+  cursor: initial
+  background-color: $background
+  color: $text
+
+.button:disabled:hover
+  background-color: $background

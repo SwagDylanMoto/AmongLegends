@@ -34,8 +34,11 @@
 .lobby-page .user-list .user .points {
   margin: 0.5em;
 }
-.lobby-page .user-list .user .kick {
+.lobby-page .user-list .user .button.cancel {
+  border-radius: 3px;
+  margin: 4px;
   margin-left: 1em;
+  padding: 4px 12px;
 }
 .lobby-page .user-list .user.you {
   font-weight: bold;
@@ -76,6 +79,7 @@
 }
 
 .button {
+  font-family: "Microsoft Sans Serif", serif;
   border: unset;
   cursor: pointer;
   padding: 0.5em 1em;
@@ -97,6 +101,16 @@
 
 .button.cancel:hover {
   background-color: #a12d2f;
+}
+
+.button:disabled {
+  cursor: initial;
+  background-color: #2f3136;
+  color: #b9bbbe;
+}
+
+.button:disabled:hover {
+  background-color: #2f3136;
 }
 
 footer {
@@ -153,7 +167,7 @@ header {
 }
 
 body {
-  font-family: Calibri, serif;
+  font-family: "Microsoft Sans Serif", serif;
   margin: 0;
   padding: 0;
   color: #b9bbbe;

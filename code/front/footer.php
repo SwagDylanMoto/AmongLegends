@@ -1,6 +1,6 @@
         </div>
         <footer>
-            <p>Among Legends &nbsp;&nbsp;&nbsp; Version : 1.0</p>
+            <p>Among Legends &nbsp;&nbsp;&nbsp; Version : <?php echo(Config::$version); ?></p>
             <img class="footer-img" src="./resources/img/spongebob.png">
         </footer>
     </body>
