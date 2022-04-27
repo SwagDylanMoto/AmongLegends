@@ -22,8 +22,6 @@ class GameSessionService extends IdentifierService {
         foreach ($sessionIdList as $sessionId) {
             $newGameSession = new GameSessionDTO();
 
-            print_r($roleList);
-
             $roleI = rand(0, count($roleList) -1);
 
             $newGameSession->sessionId = $sessionId;
