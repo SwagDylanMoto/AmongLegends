@@ -10,19 +10,52 @@ class LobbyPage extends AbstractPage {
     process(data) {
         this.contentDiv.innerHTML = '';
 
+        const container = document.createElement('div');
+        container.className = 'lobby-page';
+
         const header = document.createElement('p');
+        header.className = "title";
         header.appendChild(document.createTextNode('Liste des utilisateurs:'));
 
-        this.contentDiv.appendChild(header);
+        container.appendChild(header);
 
         const userContainer = document.createElement('div');
+        userContainer.className = "user-list";
 
         data.userList.forEach( user => {
-                const newEl = document.createElement('p');
-                newEl.appendChild(document.createTextNode(user.points + ' pts - ' + user.nickname + (user.admin != 0 ? ' - Admin' : '')));
+                const newEl = document.createElement('div');
+                let newElClass = 'user';
+
+                if (user.nickname === this.session.nickname) {
+                    newElClass += ' you';
+                }
+                if (user.admin != 0) {
+                    newElClass += ' admin';
+                    const adminEl = document.createElement('img');
+                    adminEl.className = 'admin';
+                    adminEl.src = './resources/img/icon.png';
+                    newEl.appendChild(adminEl);
+                } else {
+                    const adminEl = document.createElement('span');
+                    adminEl.className = 'admin';
+                    newEl.appendChild(adminEl);
+                }
+
+                newEl.className = newElClass;
+
+                const nicknameEl = document.createElement('p');
+                nicknameEl.className = 'nickname';
+                nicknameEl.appendChild(document.createTextNode(user.nickname));
+                newEl.appendChild(nicknameEl);
+
+                const pointsEl = document.createElement('p');
+                pointsEl.className = 'points';
+                pointsEl.appendChild(document.createTextNode(user.points + ' pts'));
+                newEl.appendChild(pointsEl);
 
                 if (this.session.admin === 'true' && user.id && user.nickname !== this.session.nickname) {
                     const kickButton = document.createElement('button');
+                    kickButton.className = 'button cancel';
                     kickButton.setAttribute('sessionId', user.id);
                     kickButton.onclick = kickSession;
                     kickButton.appendChild(document.createTextNode('Kick'));
@@ -34,12 +67,14 @@ class LobbyPage extends AbstractPage {
             }
         );
 
-        this.contentDiv.appendChild(userContainer);
+        container.appendChild(userContainer);
 
         if (this.session.admin === 'true') {
             const gameContainer = document.createElement('div');
+            gameContainer.className = 'game';
 
             const startGameButton = document.createElement('button');
+            startGameButton.className = 'button';
             startGameButton.onclick = startGame;
             if (data.userList.length < 5) {
                 startGameButton.disabled = true;
@@ -48,8 +83,10 @@ class LobbyPage extends AbstractPage {
 
             gameContainer.appendChild(startGameButton);
 
-            this.contentDiv.appendChild(gameContainer);
+            container.appendChild(gameContainer);
         }
+
+        this.contentDiv.appendChild(container);
     }
 }
 

@@ -1,0 +1,45 @@
+.lobby-page
+  background-color: $light-background
+  border-radius: 5px
+
+  width: fit-content
+  margin-left: auto
+  margin-right: auto
+  margin-top: 3em
+
+  padding: 1em
+
+  .title
+    margin: 0
+    margin-bottom: 1em
+
+    color: $big-text
+    font-size: 1.5em
+    font-weight: bold
+
+  .user-list
+    .user
+      display: flex
+      flex-direction: row
+      justify-content: flex-start
+      background-color: $item-background
+      border-radius: 5px
+      margin: 0.5em 0
+      .admin
+        height: 19px
+        width: 15px
+        margin: 0.5em
+      .nickname
+        margin: 0.5em
+        min-width: 150px
+      .points
+        margin: 0.5em
+      .kick
+        margin-left: 1em
+    .user.you
+      font-weight: bold
+
+  .game
+    margin-top: 1em
+    display: flex
+    justify-content: center

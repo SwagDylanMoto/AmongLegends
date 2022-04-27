@@ -1,3 +1,51 @@
+.lobby-page {
+  background-color: #36393f;
+  border-radius: 5px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  padding: 1em;
+}
+.lobby-page .title {
+  margin: 0;
+  margin-bottom: 1em;
+  color: #f8f8ff;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.lobby-page .user-list .user {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #40444b;
+  border-radius: 5px;
+  margin: 0.5em 0;
+}
+.lobby-page .user-list .user .admin {
+  height: 19px;
+  width: 15px;
+  margin: 0.5em;
+}
+.lobby-page .user-list .user .nickname {
+  margin: 0.5em;
+  min-width: 150px;
+}
+.lobby-page .user-list .user .points {
+  margin: 0.5em;
+}
+.lobby-page .user-list .user .kick {
+  margin-left: 1em;
+}
+.lobby-page .user-list .user.you {
+  font-weight: bold;
+}
+.lobby-page .game {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
 .login-page {
   width: fit-content;
   margin-left: auto;
@@ -43,6 +91,67 @@
   background-color: #4752c4;
 }
 
+.button.cancel {
+  background-color: #d83c3e;
+}
+
+.button.cancel:hover {
+  background-color: #a12d2f;
+}
+
+footer {
+  background-color: #202225;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+footer p {
+  margin: 1em;
+  font-size: 1em;
+}
+footer .footer-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 51px;
+  width: auto;
+}
+
+header {
+  background-color: #202225;
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+.page-header {
+  background-color: #202225;
+  margin-top: -1em;
+  margin-left: -1em;
+  margin-right: -1em;
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.page-header .link-to-copy {
+  margin-left: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #36393f;
+  border-radius: 5px;
+}
+.page-header .link-to-copy p {
+  margin: 0;
+  padding: 0.5em;
+}
+.page-header .link-to-copy .button {
+  border-radius: unset;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
 body {
   font-family: Calibri, serif;
   margin: 0;
@@ -56,22 +165,6 @@ body .body {
   overflow-y: auto;
   box-sizing: border-box;
   padding: 1em;
-  font-size: 1em;
-}
-body header {
-  background-color: #202225;
-  position: absolute;
-  width: 100%;
-  top: 0;
-}
-body footer {
-  background-color: #202225;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-}
-body footer p {
-  margin: 1em;
   font-size: 1em;
 }
 
