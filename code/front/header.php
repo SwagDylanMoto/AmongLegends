@@ -6,3 +6,4 @@
     <body>
         <header>
         </header>
+        <div class="body">

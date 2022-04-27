@@ -1,5 +1,6 @@
+        </div>
         <footer>
-            <p>Version : 1.0</p>
+            <p>Among Legends &nbsp;&nbsp;&nbsp; Version : 1.0</p>
         </footer>
     </body>
 </html>
