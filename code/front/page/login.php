@@ -1,6 +1,6 @@
-<div class="content">
-    <h4>Connecte toi pd</h4>
-    <form action="" method="post">
+<div class="login-page">
+    <h4 class="title">Connecte toi pd</h4>
+    <form class="form" action="" method="post">
         <label for="nickname">Nickname :</label>
         <input type="text" name="nickname" id="nickname" value="<?php echo($_SESSION['nickname']) ?>"/>
         <br/>
