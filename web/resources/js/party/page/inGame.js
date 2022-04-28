@@ -88,7 +88,7 @@ class InGamePage extends AbstractPage {
             title: 'Ratio',
             subtitle: 'Serpentin',
             description: 'Tu es là pour la BAGAARRRE en mode RATIOOOO !!!' +
-                ' Tu objectif est d\'avoir le plus de kills, morts et dégats tout en gagnant.'
+                ' Ton objectif est d\'avoir le plus de kills, morts et dégats tout en gagnant.'
         },
 
         Sasuke: {
