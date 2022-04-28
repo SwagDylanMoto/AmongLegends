@@ -100,7 +100,12 @@ class PartyAPIController extends Controller {
         $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
 
         foreach($gameSessions as $gameSession) {
-            $gameEndStatDTO->userList[] = $gameSession->nickname;
+            $newUserDTO = new GameEndStatDTO\UserDTO();
+
+            $newUserDTO->nickname = $gameSession->nickname;
+            $newUserDTO->gs_id = $gameSession->identifier;
+
+            $gameEndStatDTO->userList[] = $newUserDTO;
         }
 
         return $gameEndStatDTO;

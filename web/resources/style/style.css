@@ -21,6 +21,39 @@
   margin-bottom: 0;
 }
 
+.endStat-admin-page {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  padding: 1em;
+  background-color: #36393f;
+  border-radius: 5px;
+}
+.endStat-admin-page .endStat-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.endStat-admin-page .endStat-form .title {
+  color: #f8f8ff;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 2em;
+}
+.endStat-admin-page .endStat-form label {
+  width: 250px;
+}
+.endStat-admin-page .endStat-form select {
+  width: 250px;
+  margin-bottom: 1em;
+  background-color: #40444b;
+  color: #b9bbbe;
+  font-size: 1em;
+  line-height: 20px;
+  border-radius: 5px;
+}
+
 .role-page {
   width: 70%;
   margin-top: 1em;
