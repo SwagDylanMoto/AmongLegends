@@ -34,6 +34,12 @@ class API {
         await this.post(url, params);
     }
 
+    async finishGame() {
+        const url = baseUrl + '/party/admin.php?action=finishGame';
+        const params = {}
+        await this.post(url, params);
+    }
+
     async post(url, params) {
         const xhttp = new XMLHttpRequest();
 

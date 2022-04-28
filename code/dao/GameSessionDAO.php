@@ -11,12 +11,13 @@ class GameSessionDAO extends IdentifierDAO {
     public function create($gameSessionDTO) {
         try {
             $sql = $this->db->prepare(
-                'INSERT INTO '.$this->tableName.' (GAME_ID , POINTS , ROLE , ROLE_ADD_INFO , SESSION_ID , VOTED) 
-                VALUES (:gameId , :points , :role , :roleAddInfos , :sessionId , :voted)'
+                'INSERT INTO '.$this->tableName.' (GAME_ID , POINTS , NICKNAME , ROLE , ROLE_ADD_INFO , SESSION_ID , VOTED) 
+                VALUES (:gameId , :points , :nickname , :role , :roleAddInfos , :sessionId , :voted)'
             );
             $sql->execute([
                 'gameId' => $gameSessionDTO->gameId,
                 'points' => $gameSessionDTO->points,
+                'nickname' => $gameSessionDTO->nickname,
                 'role' => $gameSessionDTO->role,
                 'roleAddInfos' => $gameSessionDTO->roleAddInfos,
                 'sessionId' => $gameSessionDTO->sessionId,
@@ -35,6 +36,7 @@ class GameSessionDAO extends IdentifierDAO {
                 'UPDATE '.$this->tableName.' SET
                 GAME_ID = :gameId , 
                 POINTS = :points , 
+                NICKNAME = :nickname , 
                 ROLE = :role , 
                 ROLE_ADD_INFO = :roleAddInfos , 
                 SESSION_ID = :sessionId , 
@@ -44,6 +46,7 @@ class GameSessionDAO extends IdentifierDAO {
             $sql->execute([
                 'gameId' => $gameSessionDTO->gameId,
                 'points' => $gameSessionDTO->points,
+                'nickname' => $gameSessionDTO->nickname,
                 'role' => $gameSessionDTO->role,
                 'roleAddInfos' => $gameSessionDTO->roleAddInfos,
                 'sessionId' => $gameSessionDTO->sessionId,
@@ -72,7 +75,26 @@ class GameSessionDAO extends IdentifierDAO {
             } else {
                 return $this->fetch($data[0]);
             }
-            return $this->fetch($data);
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
+    public function getAllByGame($gameId) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE GAME_ID = :gameId');
+            $sql->execute([
+                'gameId' => $gameId
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            $returner = [];
+
+            foreach ($data as $gameSession) {
+                $returner[] = $this->fetch($gameSession);
+            }
+
+            return $returner;
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -84,6 +106,7 @@ class GameSessionDAO extends IdentifierDAO {
         $gameSessionDTO->identifier = $data['ID'];
         $gameSessionDTO->gameId = $data['GAME_ID'];
         $gameSessionDTO->points = $data['POINTS'];
+        $gameSessionDTO->nickname = $data['NICKNAME'];
         $gameSessionDTO->role = $data['ROLE'];
         $gameSessionDTO->roleAddInfos = $data['ROLE_ADD_INFO'];
         $gameSessionDTO->sessionId = $data['SESSION_ID'];

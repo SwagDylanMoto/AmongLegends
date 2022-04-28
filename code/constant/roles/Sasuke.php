@@ -26,7 +26,7 @@ class Sasuke extends Role implements RoleCalculation {
     {
         $ennemies = [
             'Toplaner',
-            'Junlger',
+            'Jungler',
             'Midlaner',
             'Adc',
             'Support',

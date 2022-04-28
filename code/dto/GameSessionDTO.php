@@ -6,6 +6,8 @@ class GameSessionDTO extends IdentifierDTO {
 
     public $sessionId;
 
+    public $nickname;
+
     public $role;
 
     public $roleAddInfos;

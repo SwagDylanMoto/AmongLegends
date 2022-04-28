@@ -42,6 +42,11 @@ class PartyAPIController extends Controller {
                 if($_GET['maxiData']) {
                     $partyWorkflowDTO->data = $this->getGameInGameDTO($currentSessionDTO, $currentGameDTO);
                 }
+            } elseif($currentGameDTO->statut === $this->partyStatutEnum[2]) { //EndStat
+                $partyWorkflowDTO->state = $this->partyStatutEnum[2];
+                if($_GET['maxiData'] && $currentSessionDTO->admin) {
+                    $partyWorkflowDTO->data = $this->getGameEndStatDTO($currentGameDTO);
+                }
             }
 
             $this->json($partyWorkflowDTO);
@@ -87,6 +92,18 @@ class PartyAPIController extends Controller {
         $gameInGameDTO->roleAddInfos = $gameSession->roleAddInfos;
 
         return $gameInGameDTO;
+    }
+
+    private function getGameEndStatDTO(GameDTO $currentGameDTO) {
+        $gameEndStatDTO = new GameEndStatDTO();
+
+        $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
+
+        foreach($gameSessions as $gameSession) {
+            $gameEndStatDTO->userList[] = $gameSession->nickname;
+        }
+
+        return $gameEndStatDTO;
     }
 
     private function json($object) {

@@ -27,7 +27,14 @@ class Gay extends Role implements RoleCalculation {
         $currentSession = SingletonRegistry::$registry['SessionService']->get($sessionId);
         $partySessions = SingletonRegistry::$registry['SessionService']->getPartySessions($currentSession->partyId);
 
-        $nicknames = [];
+        $nicknames = [
+            '##Toplaner',
+            '##Jungler',
+            '##Midlaner',
+            '##Adc',
+            '##Support',
+            '##YourLaner'
+        ];
 
         foreach ($partySessions as $partySession) {
             if ($partySession->identifier !== $currentSession->identifier) {

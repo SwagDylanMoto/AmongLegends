@@ -12,22 +12,27 @@ class GameSessionService extends IdentifierService {
         return $this->DAO->getBySessionAndGame($sessionId, $gameId);
     }
 
-    public function generateGameSessions($sessionIdList, $roleList, $gameId) {
-        if (count($sessionIdList) !== count($roleList)) {
+    public function getAllByGame($gameId) {
+        return $this->DAO->getAllByGame($gameId);
+    }
+
+    public function generateGameSessions($sessionList, $roleList, $gameId) {
+        if (count($sessionList) !== count($roleList)) {
             throw new Exception();
         }
 
         $returner = [];
 
-        foreach ($sessionIdList as $sessionId) {
+        foreach ($sessionList as $session) {
             $newGameSession = new GameSessionDTO();
 
             $roleI = rand(0, count($roleList) -1);
 
-            $newGameSession->sessionId = $sessionId;
+            $newGameSession->sessionId = $session->identifier;
             $newGameSession->gameId = $gameId;
+            $newGameSession->nickname = $session->nickname;
             $newGameSession->role = $roleList[$roleI];
-            $newGameSession->roleAddInfos = SingletonRegistry::$registry['Role::'.$roleList[$roleI]]->getRoleAddInfos($sessionId);
+            $newGameSession->roleAddInfos = SingletonRegistry::$registry['Role::'.$roleList[$roleI]]->getRoleAddInfos($session->identifier);
             $newGameSession->points = 0;
             $newGameSession->voted = false;
 

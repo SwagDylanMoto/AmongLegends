@@ -7,6 +7,7 @@ class PartyAdminAPIController extends Controller {
     private PartyService $partyService;
     private GameService $gameService;
     private GameSessionService $gameSessionService;
+    private $partyStatusEnum;
 
     private $error = false;
 
@@ -18,6 +19,8 @@ class PartyAdminAPIController extends Controller {
         $this->partyService = SingletonRegistry::$registry["PartyService"];
         $this->gameService = SingletonRegistry::$registry["GameService"];
         $this->gameSessionService = SingletonRegistry::$registry["GameSessionService"];
+
+        $this->partyStatusEnum = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum;
     }
 
     public function process() {
@@ -45,6 +48,13 @@ class PartyAdminAPIController extends Controller {
                         $this->error('WRONG_STATUS');
                     } else {
                         $this->startGame($currentPartyDTO);
+                    }
+                    break;
+                case("finishGame"):
+                    if (!$currentGameDTO || $currentGameDTO->statut !== $this->partyStatusEnum[1]) {
+                        $this->error('WRONG_STATUS');
+                    } else {
+                        $this->finishGame($currentGameDTO);
                     }
                     break;
                 default:
@@ -96,17 +106,18 @@ class PartyAdminAPIController extends Controller {
             $currentPartyDTO->activeGameId = $currentGameDTO->identifier;
             $this->partyService->update($currentPartyDTO);
 
-            $partySessionIds = [];
-            foreach ($partySessions as $partySession) {
-                $partySessionIds[] = $partySession->identifier;
-            }
             $roles = [];//Dans un nouveau array car on va le modifier et les array sont passé par ref.
             foreach (SingletonRegistry::$registry["Roles"]->rolesEnum as $role) {
                 $roles[] = $role;
             }
 
-            $gameSessions = $this->gameSessionService->generateGameSessions($partySessionIds, $roles, $currentGameDTO->identifier);
+            $gameSessions = $this->gameSessionService->generateGameSessions($partySessions, $roles, $currentGameDTO->identifier);
         }
+    }
+
+    private function finishGame(GameDTO $currentGameDTO) {
+        $currentGameDTO->statut = $this->partyStatusEnum[2];
+        $this->gameService->update($currentGameDTO);
     }
 
     private function ok() {
