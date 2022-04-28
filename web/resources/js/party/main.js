@@ -1,6 +1,7 @@
 import { api } from './api.js';
 import { lobbyPage } from './page/lobby.js';
 import { inGamePage } from "./page/inGame.js";
+import { endStatPage } from "./page/endStat.js";
 
 let status = null;
 
@@ -13,7 +14,11 @@ async function process() {
 
     switch(response.state) {
         case 'Lobby':
-            lobbyPage.process(response.data);
+            if (status !== 'Lobby') {
+                lobbyPage.process(response.data);
+            } else {
+                lobbyPage.userList(response.data);
+            }
             break;
         case 'InGame':
             if (status !== 'InGame') {
@@ -23,6 +28,20 @@ async function process() {
                 }
             }
             break;
+        case 'EndStat':
+            if (status !== 'EndStat') {
+                const admin = document.getElementById("page-content").getAttribute('admin');
+                if (admin === 'true') {
+                    const responseWithData = await api.refresh(true);
+                    if (responseWithData.state === 'EndStat' && responseWithData.data != null) {
+                        endStatPage.adminProcess(responseWithData.data);
+                    }
+                } else {
+                    endStatPage.process();
+                }
+            }
+            break;
+
     }
 
     status = response.state;

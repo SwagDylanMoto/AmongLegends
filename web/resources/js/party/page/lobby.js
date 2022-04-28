@@ -14,14 +14,33 @@ class LobbyPage extends AbstractPage {
         container.className = 'lobby-page';
 
         const header = document.createElement('p');
-        header.className = "title";
+        header.className = 'title';
         header.appendChild(document.createTextNode('Liste des utilisateurs:'));
 
         container.appendChild(header);
 
         const userContainer = document.createElement('div');
-        userContainer.className = "user-list";
+        userContainer.className = 'user-list';
+        userContainer.id = 'user-list';
 
+        container.appendChild(userContainer);
+
+        if (this.session.admin === 'true') {
+            const gameContainer = document.createElement('div');
+            gameContainer.id = 'admin-game-container';
+            gameContainer.className = 'game';
+
+            container.appendChild(gameContainer);
+        }
+
+        this.contentDiv.appendChild(container);
+
+        this.userList(data);
+    }
+
+    userList(data) {
+        const userList = document.getElementById('user-list');
+        userList.innerHTML = '';
         data.userList.forEach( user => {
                 const newEl = document.createElement('div');
                 let newElClass = 'user';
@@ -62,16 +81,12 @@ class LobbyPage extends AbstractPage {
 
                     newEl.appendChild(kickButton);
                 }
+            userList.appendChild(newEl);
+        });
 
-                userContainer.appendChild(newEl);
-            }
-        );
-
-        container.appendChild(userContainer);
-
-        if (this.session.admin === 'true') {
-            const gameContainer = document.createElement('div');
-            gameContainer.className = 'game';
+        const gameContainer = document.getElementById('admin-game-container');
+        if (gameContainer != null) {
+            gameContainer.innerHTML = '';
 
             const startGameButton = document.createElement('button');
             startGameButton.className = 'button';
@@ -82,11 +97,7 @@ class LobbyPage extends AbstractPage {
             startGameButton.appendChild(document.createTextNode('Commencer la partie'));
 
             gameContainer.appendChild(startGameButton);
-
-            container.appendChild(gameContainer);
         }
-
-        this.contentDiv.appendChild(container);
     }
 }
 
