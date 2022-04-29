@@ -29,10 +29,13 @@ class VotedPage extends AbstractPage {
         container.appendChild(text);
 
         this.contentDiv.appendChild(container);
+
+        this.peopleLeft(data);
     }
 
     peopleLeft(data) {
-
+        const peopleLeft = document.getElementById('people-left');
+        peopleLeft.innerHTML = data.peopleLeft;
     }
 }
 
