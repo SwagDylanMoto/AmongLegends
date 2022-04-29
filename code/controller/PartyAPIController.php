@@ -53,12 +53,12 @@ class PartyAPIController extends Controller {
                 $currentGameSessionDTO = $this->gameSessionService->getBySessionAndGame($currentSessionDTO->identifier, $currentGameDTO->identifier);
                 $endVotes = $this->endVoteService->getAllByVotingGS($currentGameSessionDTO->identifier);
 
-                if (count($endVotes) >= 4) {
+                if (count($endVotes) < 4) { //-> Voting
                     $partyWorkflowDTO->state = $this->partyStatutEnum[3];
                     if($_GET['maxiData']) {
-                        $partyWorkflowDTO->data = $this->getGameVotingDTO();
+                        $partyWorkflowDTO->data = $this->getGameVotingDTO($currentGameSessionDTO, $currentGameDTO);
                     }
-                } else {
+                } else { //-> Voted
                     $partyWorkflowDTO->state = 'Voted';
                     $partyWorkflowDTO->data = $this->getGameVotedDTO($currentGameDTO);
                 }
@@ -126,8 +126,28 @@ class PartyAPIController extends Controller {
         return $gameEndStatDTO;
     }
 
-    private function getGameVotingDTO() {
+    private function getGameVotingDTO(GameSessionDTO $currentGameSessionDTO, GameDTO $currentGameDTO) {
+        $gameVotingDTO = new GameVotingDTO();
 
+        foreach(SingletonRegistry::$registry['Roles']->rolesEnum as $role) {
+            if ($role !== $currentGameSessionDTO->role) {
+                $gameVotingDTO->roleList[] = $role;
+            }
+        }
+
+        $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
+        foreach($gameSessions as $gameSession) {
+            if ($gameSession->identifier !== $currentGameSessionDTO->identifier) {
+                $user = new GameVotingDTO\UserDTO();
+
+                $user->gs_id = $gameSession->identifier;
+                $user->nickname = $gameSession->nickname;
+
+                $gameVotingDTO->userList[] = $user;
+            }
+        }
+
+        return $gameVotingDTO;
     }
 
     private function getGameVotedDTO(GameDTO $currentGameDTO) {

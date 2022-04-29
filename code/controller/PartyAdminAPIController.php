@@ -150,7 +150,7 @@ class PartyAdminAPIController extends Controller {
         $this->endStatService->create($newEndStatDTO);
 
         $currentGameDTO->statut = $this->partyStatusEnum[3];
-        $this->partyService->update($currentGameDTO);
+        $this->gameService->update($currentGameDTO);
     }
 
     private function ok() {

@@ -9,11 +9,11 @@ class EndVoteService extends IdentifierService {
     }
 
     public function getAllByVotingGS($gsId) {
-        return $this->getAllByVotingGS($gsId);
+        return $this->DAO->getAllByVotingGS($gsId);
     }
 
     public function getAllByVotedGS($gsId) {
-        return $this->getAllByVotedGS($gsId);
+        return $this->DAO->getAllByVotedGS($gsId);
     }
 }
 
