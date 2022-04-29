@@ -41,18 +41,6 @@
   margin-top: 0;
   margin-bottom: 2em;
 }
-.endStat-admin-page .endStat-form label {
-  width: 250px;
-}
-.endStat-admin-page .endStat-form select {
-  width: 250px;
-  margin-bottom: 1em;
-  background-color: #40444b;
-  color: #b9bbbe;
-  font-size: 1em;
-  line-height: 20px;
-  border-radius: 5px;
-}
 
 .role-page {
   width: 70%;
@@ -97,11 +85,6 @@
   font-size: 20px;
   line-height: 30px;
   margin: 0;
-}
-.role-page .role-description p .highlight {
-  padding: 0 0.5em;
-  background-color: #49443c;
-  color: #faa81a;
 }
 .role-page .role-end-game {
   margin-top: 1em;
@@ -247,6 +230,43 @@ header {
   position: absolute;
   width: 100%;
   top: 0;
+}
+
+.highlight {
+  color: #faa81a;
+  background-color: #49443c;
+  padding: 0 0.5em;
+}
+
+.input-select-label {
+  width: 250px;
+  margin-bottom: 3px;
+}
+
+.input-select {
+  width: 250px;
+  margin-bottom: 1em;
+  padding: 3px;
+  background-color: #40444b;
+  color: #b9bbbe;
+  font-size: 1em;
+  line-height: 20px;
+  border-radius: 5px;
+}
+
+.input-text-label {
+  width: 250px;
+  margin-bottom: 3px;
+}
+
+.input-text {
+  width: 250px;
+  margin-bottom: 1em;
+  padding: 3px;
+  color: #2f3136;
+  font-size: 1em;
+  line-height: 20px;
+  border-radius: 5px;
 }
 
 .page-header {

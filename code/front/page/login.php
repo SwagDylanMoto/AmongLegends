@@ -1,8 +1,8 @@
 <div class="login-page">
     <form class="form" action="" method="post">
         <h4 class="title">Connecte toi pd</h4>
-        <label for="nickname">Nickname :</label>
-        <input type="text" name="nickname" id="nickname" value="<?php echo($_SESSION['nickname']) ?>"/>
+        <label class="input-text-label" for="nickname">Nickname :</label>
+        <input class="input-text" type="text" name="nickname" id="nickname" value="<?php echo($_SESSION['nickname']) ?>"/>
         <br/>
         <?php
             if ($_GET["party"]) {

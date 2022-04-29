@@ -35,7 +35,7 @@ class EndStatPage extends AbstractPage {
         const form = document.createElement('form');
         form.className = 'endStat-form';
         form.method = 'post';
-        form.action = '';
+        form.action = './party/admin.php?action=sendEndStat';
 
         const title = document.createElement('p');
         title.className = 'title';
@@ -44,10 +44,12 @@ class EndStatPage extends AbstractPage {
 
         const selectWinLabel = document.createElement('label');
         selectWinLabel.setAttribute('for', 'select-win');
+        selectWinLabel.className = 'input-select-label'
         selectWinLabel.innerHTML = 'Victoire :';
         const selectWin = document.createElement('select');
         selectWin.id = 'select-win';
         selectWin.name = 'select-win';
+        selectWin.className = 'input-select'
         selectWin.required = true;
         const selectWinOptions = [
             {value: '', display: 'Choisir'},
@@ -70,10 +72,12 @@ class EndStatPage extends AbstractPage {
 
         const selectKillLabel = document.createElement('label');
         selectKillLabel.setAttribute('for', 'select-kill');
+        selectKillLabel.className = 'input-select-label'
         selectKillLabel.innerHTML = 'Joueur avec le plus de <span class="highlight">kills</span> :';
         const selectKill = document.createElement('select');
         selectKill.id = 'select-kill';
         selectKill.name = 'select-kill';
+        selectKill.className = 'input-select'
         selectKill.required = true;
         this.addOptions(selectKill, selectOptions);
         form.appendChild(selectKillLabel);
@@ -81,10 +85,12 @@ class EndStatPage extends AbstractPage {
 
         const selectDeathLabel = document.createElement('label');
         selectDeathLabel.setAttribute('for', 'select-death');
+        selectDeathLabel.className = 'input-select-label'
         selectDeathLabel.innerHTML = 'Joueur avec le plus de <span class="highlight">morts</span> :';
         const selectDeath = document.createElement('select');
         selectDeath.id = 'select-death';
         selectDeath.name = 'select-death';
+        selectDeath.className = 'input-select'
         selectDeath.required = true;
         this.addOptions(selectDeath, selectOptions);
         form.appendChild(selectDeathLabel);
@@ -92,10 +98,12 @@ class EndStatPage extends AbstractPage {
 
         const selectDmgLabel = document.createElement('label');
         selectDmgLabel.setAttribute('for', 'select-dmg');
+        selectDmgLabel.className = 'input-select-label'
         selectDmgLabel.innerHTML = 'Joueur avec le plus de <span class="highlight">dégâts</span> :';
         const selectDmg = document.createElement('select');
         selectDmg.id = 'select-dmg';
         selectDmg.name = 'select-dmg';
+        selectDmg.className = 'input-select'
         selectDmg.required = true;
         this.addOptions(selectDmg, selectOptions);
         form.appendChild(selectDmgLabel);

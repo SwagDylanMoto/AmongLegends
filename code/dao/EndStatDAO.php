@@ -10,9 +10,15 @@ class EndStatDAO extends DAO {
 
     public function create($endStatDTO) {
         try {
-            $sql = $this->db->prepare('INSERT INTO '.$this->tableName.' (GAME_ID) VALUES (:gameId)');
+            $sql = $this->db->prepare(
+                'INSERT INTO '.$this->tableName.' (GAME_ID , WIN , MOST_DMG_GS_ID , MOST_DEATH_GS_ID , MOST_KILL_GS_ID) 
+                VALUES (:gameId , :win , :mostDmg_GameSessionId , :mostDeath_GameSessionId , :mostKill_GameSessionId)');
             $sql->execute([
-                'gameId' => $endStatDTO->gameId
+                'gameId' => $endStatDTO->gameId,
+                'win' => $endStatDTO->win,
+                'mostDmg_GameSessionId' => $endStatDTO->mostDmg_GameSessionId,
+                'mostDeath_GameSessionId' => $endStatDTO->mostDeath_GameSessionId,
+                'mostKill_GameSessionId' => $endStatDTO->mostKill_GameSessionId
             ]);
             return $endStatDTO;
         } catch(PDOException $e) {
@@ -43,13 +49,25 @@ class EndStatDAO extends DAO {
             ]);
             $data = $sql->fetch(PDO::FETCH_ASSOC);
 
-            $endStatDTO = new EndStatDTO();
-            $endStatDTO->gameId = $data['GAME_ID'];
-
-            return $endStatDTO;
+            if (!$data["ID"]) {
+                return null;
+            }
+            return $this->fetch($data);
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }
+    }
+
+    protected function fetch($data) {
+        $endStatDTO = new EndStatDTO();
+
+        $endStatDTO->gameId = $data['GAME_ID'];
+        $endStatDTO->win = $data['WIN'];
+        $endStatDTO->mostKill_GameSessionId = $data['MOST_KILL_GS_ID'];
+        $endStatDTO->mostDeath_GameSessionId = $data['MOST_DEATH_GS_ID'];
+        $endStatDTO->mostDmg_GameSessionId = $data['MOST_DMG_GS_ID'];
+
+        return $endStatDTO;
     }
 }
 

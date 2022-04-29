@@ -7,6 +7,7 @@ class PartyAdminAPIController extends Controller {
     private PartyService $partyService;
     private GameService $gameService;
     private GameSessionService $gameSessionService;
+    private EndStatService $endStatService;
     private $partyStatusEnum;
 
     private $error = false;
@@ -19,6 +20,7 @@ class PartyAdminAPIController extends Controller {
         $this->partyService = SingletonRegistry::$registry["PartyService"];
         $this->gameService = SingletonRegistry::$registry["GameService"];
         $this->gameSessionService = SingletonRegistry::$registry["GameSessionService"];
+        $this->endStatService = SingletonRegistry::$registry["EndStatService"];
 
         $this->partyStatusEnum = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum;
     }
@@ -55,6 +57,22 @@ class PartyAdminAPIController extends Controller {
                         $this->error('WRONG_STATUS');
                     } else {
                         $this->finishGame($currentGameDTO);
+                    }
+                    break;
+                case("sendEndStat"):
+                    if (!$currentGameDTO || $currentGameDTO->statut !== $this->partyStatusEnum[2]) {
+                        $this->error('WRONG_STATUS');
+                    } elseif ($_POST['select-win']
+                        && $_POST['select-kill']
+                        && $_POST['select-win']
+                        && $_POST['select-kill']) {
+                        $this->endStat($currentGameDTO);
+                    } else {
+                        $this->error("WRONG_PARAMETER");
+                    }
+                    if (!$this->error) {
+                        header("Location: ".Config::$baseUrl."/party");
+                        return;
                     }
                     break;
                 default:
@@ -118,6 +136,21 @@ class PartyAdminAPIController extends Controller {
     private function finishGame(GameDTO $currentGameDTO) {
         $currentGameDTO->statut = $this->partyStatusEnum[2];
         $this->gameService->update($currentGameDTO);
+    }
+
+    private function endStat(GameDTO $currentGameDTO) {
+        $newEndStatDTO = new EndStatDTO();
+
+        $newEndStatDTO->gameId = $currentGameDTO->identifier;
+        $newEndStatDTO->win = ($_POST['select-win'] === 'true');
+        $newEndStatDTO->mostKill_GameSessionId = $_POST['select-kill'];
+        $newEndStatDTO->mostDeath_GameSessionId = $_POST['select-death'];
+        $newEndStatDTO->mostDmg_GameSessionId = $_POST['select-dmg'];
+
+        $this->endStatService->create($newEndStatDTO);
+
+        $currentGameDTO->statut = $this->partyStatusEnum[3];
+        $this->partyService->update($currentGameDTO);
     }
 
     private function ok() {
