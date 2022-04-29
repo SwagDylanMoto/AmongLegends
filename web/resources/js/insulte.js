@@ -1,0 +1,22 @@
+export const insulte = [
+    'le fils de pute',
+    'le sociapath pervers narcissique',
+    'le gros pd',
+    'l\'obèse',
+    'la femme',
+    'la pute',
+    'la salope',
+    'le suceur de daron',
+    'le connard',
+    'le chien',
+    'l\'angloutisseur de pénis',
+    'le pénis',
+    'le vagin',
+    'la bite',
+    'le yuumi enjoyer',
+    'aka nicolas fisher',
+    'le caca',
+    'le prout',
+    'la diarrhée',
+    'la couille gauche'
+]

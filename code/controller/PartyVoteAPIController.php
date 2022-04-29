@@ -107,6 +107,17 @@ class PartyVoteAPIController extends Controller {
                 $this->ok();
             }
 
+            $votedCount = 0;
+            $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
+            foreach ($gameSessions as $gameSession) {
+                if(count($this->endVoteService->getAllByVotingGS($gameSession->identifier)) >= 4) {
+                    $votedCount++;
+                }
+            }
+            if ($votedCount == 5) {
+                $this->GameEnded();
+            }
+
         } elseif ($_SESSION['token']) {
 
             $this->error("NO_ACTIVE_SESSION");
@@ -116,6 +127,10 @@ class PartyVoteAPIController extends Controller {
             $this->error("NO_SESSION");
 
         }
+    }
+
+    private function GameEnded(GameDTO $currentGameDTO, $gameSessionDTOS ) {
+
     }
 
     private function ok() {

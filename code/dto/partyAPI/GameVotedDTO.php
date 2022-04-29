@@ -2,5 +2,5 @@
 
 class GameVotedDTO extends DTO {
 
-    public $peopleLeft;
+    public $peopleLeft = [];
 }

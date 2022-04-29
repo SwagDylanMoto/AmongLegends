@@ -154,10 +154,9 @@ class PartyAPIController extends Controller {
         $gameVotedDTO = new GameVotedDTO();
 
         $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
-        $gameVotedDTO->peopleLeft = count($gameSessions);
         foreach ($gameSessions as $gameSession) {
-            if (count($this->endVoteService->getAllByVotingGS($gameSession->identifier)) >= 4) {
-                $gameVotedDTO->peopleLeft -= 1;
+            if (count($this->endVoteService->getAllByVotingGS($gameSession->identifier)) < 4) {
+                $gameVotedDTO->peopleLeft[] = $gameSession->nickname;
             }
         }
 
