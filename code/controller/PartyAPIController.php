@@ -7,6 +7,7 @@ class PartyAPIController extends Controller {
     private PartyService $partyService;
     private GameService $gameService;
     private GameSessionService  $gameSessionService;
+    private EndVoteService $endVoteService;
     private $partyStatutEnum;
 
     function __construct() {
@@ -17,6 +18,7 @@ class PartyAPIController extends Controller {
         $this->partyService = SingletonRegistry::$registry["PartyService"];
         $this->gameService = SingletonRegistry::$registry["GameService"];
         $this->gameSessionService = SingletonRegistry::$registry["GameSessionService"];
+        $this->endVoteService = SingletonRegistry::$registry["EndVoteService"];
         $this->partyStatutEnum = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum;
     }
 
@@ -46,6 +48,19 @@ class PartyAPIController extends Controller {
                 $partyWorkflowDTO->state = $this->partyStatutEnum[2];
                 if($_GET['maxiData'] && $currentSessionDTO->admin) {
                     $partyWorkflowDTO->data = $this->getGameEndStatDTO($currentGameDTO);
+                }
+            } elseif($currentGameDTO->statut === $this->partyStatutEnum[3]) { //Voting
+                $currentGameSessionDTO = $this->gameSessionService->getBySessionAndGame($currentSessionDTO->identifier, $currentGameDTO->identifier);
+                $endVotes = $this->endVoteService->getAllByVotingGS($currentGameSessionDTO->identifier);
+
+                if (count($endVotes) >= 4) {
+                    $partyWorkflowDTO->state = $this->partyStatutEnum[3];
+                    if($_GET['maxiData']) {
+                        $partyWorkflowDTO->data = $this->getGameVotingDTO();
+                    }
+                } else {
+                    $partyWorkflowDTO->state = 'Voted';
+                    $partyWorkflowDTO->data = $this->getGameVotedDTO($currentGameDTO);
                 }
             }
 
@@ -109,6 +124,24 @@ class PartyAPIController extends Controller {
         }
 
         return $gameEndStatDTO;
+    }
+
+    private function getGameVotingDTO() {
+
+    }
+
+    private function getGameVotedDTO(GameDTO $currentGameDTO) {
+        $gameVotedDTO = new GameVotedDTO();
+
+        $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
+        $gameVotedDTO->peopleLeft = count($gameSessions);
+        foreach ($gameSessions as $gameSession) {
+            if (count($this->endVoteService->getAllByVotingGS($gameSession->identifier)) >= 4) {
+                $gameVotedDTO->peopleLeft -= 1;
+            }
+        }
+
+        return $gameVotedDTO;
     }
 
     private function json($object) {

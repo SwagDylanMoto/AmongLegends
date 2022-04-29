@@ -47,6 +47,46 @@ class EndVoteDAO extends IdentifierDAO {
         }
     }
 
+    public function getAllByVotingGS($gsId) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE VOTING_GS_ID = :gsId');
+            $sql->execute([
+                'gsId' => $gsId
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            $returner = [];
+
+            foreach ($data as $endVote) {
+                $returner[] = $this->fetch($endVote);
+            }
+
+            return $returner;
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
+    public function getAllByVotedGS($gsId) {
+        try {
+            $sql = $this->db->prepare('SELECT * FROM '.$this->tableName.' WHERE VOTED_GS_ID = :gsId');
+            $sql->execute([
+                'gsId' => $gsId
+            ]);
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            $returner = [];
+
+            foreach ($data as $endVote) {
+                $returner[] = $this->fetch($endVote);
+            }
+
+            return $returner;
+        } catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        }
+    }
+
     protected function fetch($data) {
         $endVoteDTO = new EndVoteDTO();
 

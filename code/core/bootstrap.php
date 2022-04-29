@@ -61,6 +61,7 @@ include($base."code/service/SessionService.php");
 include($base."code/service/GameService.php");
 include($base."code/service/GameSessionService.php");
 include($base."code/service/EndStatService.php");
+include($base."code/service/EndVoteService.php");
 
 include($base."code/service/SessionManager.php");
 //endregion --- SERVICE ---
