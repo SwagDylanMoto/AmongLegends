@@ -35,6 +35,9 @@ class Router extends Singleton {
             case("party/adminApi"):
                 include(SingletonRegistry::$registry["Request"]->base."code/controller/PartyAdminAPIController.php");
                 break;
+            case("party/voteApi"):
+                include(SingletonRegistry::$registry["Request"]->base."code/controller/PartyVoteAPIController.php");
+                break;
 
         }
         $controller = SingletonRegistry::$registry["Controller"];

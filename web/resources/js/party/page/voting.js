@@ -42,7 +42,7 @@ class VotingPage extends AbstractPage {
 
             data.roleList.forEach(role => {
                 const option = document.createElement('option');
-                option.value = '{ ' + user.gs_id + ': "' + role + '" }';
+                option.value = '{ "' + user.gs_id + '" : "' + role + '" }';
                 option.appendChild(document.createTextNode(role));
                 select.appendChild(option);
             });
