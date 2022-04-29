@@ -2,6 +2,8 @@ import { api } from './api.js';
 import { lobbyPage } from './page/lobby.js';
 import { inGamePage } from "./page/inGame.js";
 import { endStatPage } from "./page/endStat.js";
+import { votingPage } from "./page/voting.js";
+import { votedPage } from "./page/voted.js";
 
 let status = null;
 
@@ -39,6 +41,21 @@ async function process() {
                 } else {
                     endStatPage.process();
                 }
+            }
+            break;
+        case 'Voting':
+            if (status !== 'Voting') {
+                const responseWithData = await api.refresh(true);
+                if (responseWithData.state === 'Voting' && responseWithData.data != null) {
+                    votingPage.process(responseWithData.data);
+                }
+            }
+            break;
+        case 'Voted':
+            if (status !== 'Voted') {
+                votedPage.process(response.data);
+            } else {
+                votedPage.peopleLeft(response.data);
             }
             break;
 
