@@ -7,9 +7,11 @@ class PartyVoteAPIController extends Controller {
     private GameService $gameService;
     private GameSessionService $gameSessionService;
     private EndVoteService $endVoteService;
+    private EndStatService $endStatService;
 
     private $error = false;
     private $rolesEnum;
+    private $partyStatutEnum;
 
     function __construct() {
         parent::__construct();
@@ -19,8 +21,10 @@ class PartyVoteAPIController extends Controller {
         $this->gameService = SingletonRegistry::$registry["GameService"];
         $this->gameSessionService = SingletonRegistry::$registry["GameSessionService"];
         $this->endVoteService = SingletonRegistry::$registry["EndVoteService"];
+        $this->endStatService = SingletonRegistry::$registry["EndStatService"];
 
         $this->rolesEnum = SingletonRegistry::$registry['Roles']->rolesEnum;
+        $this->partyStatutEnum = SingletonRegistry::$registry["PartyStatut"]->partyStatutEnum;
     }
 
     public function process() {
@@ -130,7 +134,15 @@ class PartyVoteAPIController extends Controller {
     }
 
     private function GameEnded(GameDTO $currentGameDTO, $gameSessionDTOS ) {
-
+        foreach ($gameSessionDTOS as $gameSessionDTO) {
+            $roleConstant = SingletonRegistry::$registry['Role::'.$gameSessionDTO->role];
+            $gameSessionDTO->points = $roleConstant->calculPoints(
+                $this->endStatService->get($gameSessionDTO->identifier),
+                $gameSessionDTO->identifier);
+            $this->gameSessionService->update($gameSessionDTO);
+        }
+        $currentGameDTO->statut = $this->partyStatutEnum[4];//EndGame
+        $this->gameService->update($currentGameDTO);
     }
 
     private function ok() {
