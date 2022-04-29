@@ -1,6 +1,6 @@
 export const insulte = [
     'le fils de pute',
-    'le sociapath pervers narcissique',
+    'le sociapathe pervers narcissique',
     'le gros pd',
     'l\'obèse',
     'la femme',
@@ -36,5 +36,7 @@ export const insulte = [
     'les toilettes humaines',
     'se branle actuellement',
     'est entrain de chier sa mère',
-    'baise sa mère'
+    'baise sa mère',
+    'le raciste (certainement)',
+    'le neonazi irl (certainement)'
 ]
