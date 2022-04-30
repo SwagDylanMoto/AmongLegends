@@ -119,7 +119,7 @@ class PartyVoteAPIController extends Controller {
                 }
             }
             if ($votedCount == 5) {
-                $this->GameEnded();
+                $this->GameEnded($currentGameDTO, $gameSessions);
             }
 
         } elseif ($_SESSION['token']) {
@@ -134,11 +134,10 @@ class PartyVoteAPIController extends Controller {
     }
 
     private function GameEnded(GameDTO $currentGameDTO, $gameSessionDTOS ) {
+        $endStatDTO = $this->endStatService->get($currentGameDTO->identifier);
         foreach ($gameSessionDTOS as $gameSessionDTO) {
             $roleConstant = SingletonRegistry::$registry['Role::'.$gameSessionDTO->role];
-            $gameSessionDTO->points = $roleConstant->calculPoints(
-                $this->endStatService->get($gameSessionDTO->identifier),
-                $gameSessionDTO->identifier);
+            $gameSessionDTO->points = $roleConstant->calculPoints($endStatDTO, $gameSessionDTO->identifier);
             $this->gameSessionService->update($gameSessionDTO);
         }
         $currentGameDTO->statut = $this->partyStatutEnum[4];//EndGame

@@ -49,10 +49,13 @@ class EndStatDAO extends DAO {
             ]);
             $data = $sql->fetch(PDO::FETCH_ASSOC);
 
-            if (!$data["ID"]) {
+            if (!$data) {
                 return null;
+            } elseif($data["GAME_ID"]) {
+                return $this->fetch($data);
+            } else {
+                return $this->fetch($data[0]);
             }
-            return $this->fetch($data);
         } catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
         }

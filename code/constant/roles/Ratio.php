@@ -23,13 +23,13 @@ class Ratio extends Role implements RoleCalculation {
             $points -= 5;
         }
 
-        if ($endStatDTO->mostDmg_GameSessionId === $gameSessionId) {
+        if ($endStatDTO->mostDmg_GameSessionId == $gameSessionId) {
             $points += 2;
         }
-        if ($endStatDTO->mostDeath_GameSessionId === $gameSessionId) {
+        if ($endStatDTO->mostDeath_GameSessionId == $gameSessionId) {
             $points += 2;
         }
-        if ($endStatDTO->mostKill_GameSessionId === $gameSessionId) {
+        if ($endStatDTO->mostKill_GameSessionId == $gameSessionId) {
             $points += 2;
         }
 
