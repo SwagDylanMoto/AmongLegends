@@ -36,7 +36,7 @@ class EndStatPage extends AbstractPage {
         const form = document.createElement('form');
         form.className = 'endStat-form';
         form.method = 'post';
-        form.action = './party/admin.php?action=sendEndStat';
+        form.action = baseUrl+'/party/admin.php?action=sendEndStat';
 
         const title = document.createElement('p');
         title.className = 'title';

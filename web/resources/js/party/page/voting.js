@@ -1,5 +1,6 @@
 import { AbstractPage } from './abstract.js';
 import { api } from '../api.js';
+import { baseUrl } from "../../config.js";
 
 class VotingPage extends AbstractPage {
 
@@ -16,7 +17,7 @@ class VotingPage extends AbstractPage {
         const form = document.createElement('form');
         form.className = 'vote-form';
         form.method = 'post';
-        form.action = './party/vote.php';
+        form.action = baseUrl+'/party/vote.php';
 
         const title = document.createElement('p');
         title.className = 'title';

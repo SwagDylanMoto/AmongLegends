@@ -13,9 +13,9 @@
         ?>
         <?php
         if (SingletonRegistry::$registry['SessionManager']->currentSessionDTO) {
-            echo('
-                <a class="button" href="./party">Reprendre</a>
-            ');
+            echo('<a class="button" href="'
+                . Config::$baseUrl
+                . '/party">Reprendre</a>');
         }
         ?>
     </form>

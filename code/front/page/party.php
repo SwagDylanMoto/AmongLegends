@@ -1,5 +1,5 @@
 <div class="page-header">
-    <a class="button cancel" href="./logout">Quitter</a>
+    <a class="button cancel" href="<?php echo(Config::$baseUrl) ?>/logout">Quitter</a>
     <div class="link-to-copy">
         <p id="link-to-copy"><?php
             echo(Config::$baseUrl .
