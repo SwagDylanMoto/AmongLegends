@@ -1,6 +1,8 @@
+import { baseUrl } from "../config.js";
+
 export const roles = {
         Gay: {
-            img: './resources/img/roles/Gay.png',
+            img: baseUrl+'/resources/img/roles/Gay.png',
             title: 'Gay',
             subtitle: 'Roméo',
             description: 'Tu es aveuglé par l\'amour (super gay) que tu ressens pour <span class="highlight">###</span> .' +
@@ -12,7 +14,7 @@ export const roles = {
         },
 
         Krik: {
-            img: './resources/img/roles/Krik.png',
+            img: baseUrl+'/resources/img/roles/Krik.png',
             title: 'Krik',
             subtitle: 'Escroc',
             description: 'Tel un gnar lethalité ou un varus tank,' +
@@ -21,7 +23,7 @@ export const roles = {
         },
 
         Ratio: {
-            img: './resources/img/roles/Ratio.png',
+            img: baseUrl+'/resources/img/roles/Ratio.png',
             title: 'Ratio',
             subtitle: 'Serpentin',
             description: 'Tu es là pour la BAGAARRRE en mode RATIOOOO !!!' +
@@ -30,7 +32,7 @@ export const roles = {
         },
 
         Sasuke: {
-            img: './resources/img/roles/Sasuke.png',
+            img: baseUrl+'/resources/img/roles/Sasuke.png',
             title: 'Sasuke',
             subtitle: 'Trop dark',
             description: 'Tu n\'as pas d\'amis ni de passion, ton seul objectif et de tuer ' +
@@ -41,7 +43,7 @@ export const roles = {
         },
 
         SussyBaka: {
-            img: './resources/img/roles/SussyBaka.png',
+            img: baseUrl+'/resources/img/roles/SussyBaka.png',
             title: 'Sussy Baka',
             subtitle: 'Imposteur',
             description: 'Uh oh !! Ton but est de perdre mais sans te faire voter imposteur (Sussy Baka). Bonne chance.',

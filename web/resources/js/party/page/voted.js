@@ -1,5 +1,6 @@
 import { AbstractPage } from './abstract.js';
 import { insulte } from "../../insulte.js";
+import { baseUrl } from "../../config.js";
 
 class VotedPage extends AbstractPage {
 
@@ -19,7 +20,7 @@ class VotedPage extends AbstractPage {
         container.appendChild(title);
 
         const img = document.createElement('img');
-        img.src = './resources/img/spongebob.png';
+        img.src = baseUrl + '/resources/img/spongebob.png';
         container.appendChild(img);
 
         const text = document.createElement('p');

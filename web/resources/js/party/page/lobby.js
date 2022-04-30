@@ -1,5 +1,6 @@
 import { AbstractPage } from './abstract.js';
 import { api } from '../api.js';
+import { baseUrl } from "../../config.js";
 
 class LobbyPage extends AbstractPage {
 
@@ -52,7 +53,7 @@ class LobbyPage extends AbstractPage {
                     newElClass += ' admin';
                     const adminEl = document.createElement('img');
                     adminEl.className = 'admin';
-                    adminEl.src = './resources/img/icon.png';
+                    adminEl.src = baseUrl + '/resources/img/icon.png';
                     newEl.appendChild(adminEl);
                 } else {
                     const adminEl = document.createElement('span');

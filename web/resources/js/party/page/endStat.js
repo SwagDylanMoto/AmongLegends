@@ -1,5 +1,6 @@
 import { AbstractPage } from './abstract.js';
 import { api } from '../api.js';
+import { baseUrl } from "../../config.js";
 
 class EndStatPage extends AbstractPage {
 
@@ -14,7 +15,7 @@ class EndStatPage extends AbstractPage {
         container.className = 'endStat-normal-page';
 
         const img = document.createElement('img');
-        img.src = './resources/img/spongebob.png';
+        img.src = baseUrl + '/resources/img/spongebob.png';
         container.appendChild(img);
 
         const text = document.createElement('p');
