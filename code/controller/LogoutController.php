@@ -2,8 +2,8 @@
 
 class LogoutController extends Controller {
 
-    private $sessionManager;
-    private $sessionService;
+    private SessionManager $sessionManager;
+    private SessionService $sessionService;
 
     function __construct() {
         parent::__construct();
@@ -13,7 +13,7 @@ class LogoutController extends Controller {
     }
 
     public function process() {
-        if ($this->sessionManager->currrentSessionDTO) {
+        if ($this->sessionManager->currentSessionDTO) {
             $this->sessionService->leaveParty();
         } else {
             $this->sessionManager->deleteSession();

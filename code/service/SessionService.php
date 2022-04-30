@@ -54,10 +54,11 @@ class SessionService extends IdentifierService {
     }
 
     public function leaveParty() {
-        if ($this->sessionManager->currentSessionDTO) {
-            $partyId = $this->sessionManager->currentSessionDTO->partiId;
+        $currentSessionDTO = $this->sessionManager->currentSessionDTO;
+        if ($currentSessionDTO) {
+            $partyId = $currentSessionDTO->partiId;
 
-            $this->delete($this->sessionManager->currentSessionDTO);
+            $this->delete($currentSessionDTO);
             $this->sessionManager->deleteSession();
 
             $partySessions = $this->getPartySessions($partyId);
