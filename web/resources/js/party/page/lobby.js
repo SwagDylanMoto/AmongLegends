@@ -109,6 +109,7 @@ function kickSession(e) {
 
 function startGame(e) {
     api.startGame();
+    e.target.disabled = true;
 }
 
 export const lobbyPage = new LobbyPage();

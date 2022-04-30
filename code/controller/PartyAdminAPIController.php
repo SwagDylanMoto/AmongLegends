@@ -75,6 +75,12 @@ class PartyAdminAPIController extends Controller {
                         return;
                     }
                     break;
+                case("newGame"):
+                    if (!$currentGameDTO || $currentGameDTO->statut !== $this->partyStatusEnum[4]) {
+                        $this->error('WRONG_STATUS');
+                    } else {
+                        $this->endGame($currentGameDTO, $currentPartyDTO);
+                    }
                 default:
                     $this->error("WRONG_ACTION");
                     break;
@@ -151,6 +157,20 @@ class PartyAdminAPIController extends Controller {
 
         $currentGameDTO->statut = $this->partyStatusEnum[3];
         $this->gameService->update($currentGameDTO);
+    }
+
+    private function endGame(GameDTO $currentGameDTO, PartyDTO $currentPartyDTO) {
+        $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
+        foreach ($gameSessions as $gameSession) {
+            $session = $this->sessionService->get($gameSession->sessionId);
+            if ($session) {
+                $session->points += $gameSession->points;
+                $this->sessionService->update($session);
+            }
+        }
+
+        $currentPartyDTO->activeGameId = null;
+        $this->partyService->update($currentPartyDTO);
     }
 
     private function ok() {

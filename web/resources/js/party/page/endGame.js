@@ -109,6 +109,8 @@ class EndGamePage extends AbstractPage {
 }
 
 function newGame(e) {
+    api.newGame();
+    e.target.disabled = true;
 }
 
 export const endGamePage = new EndGamePage();

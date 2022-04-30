@@ -94,6 +94,7 @@ class InGamePage extends AbstractPage {
 
 function endGame(e) {
     api.finishGame();
+    e.target.disabled = true;
 }
 
 export const inGamePage = new InGamePage();

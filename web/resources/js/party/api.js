@@ -40,6 +40,12 @@ class API {
         await this.post(url, params);
     }
 
+    async newGame() {
+        const url = baseUrl + '/party/admin.php?action=newGame';
+        const params = {}
+        await this.post(url, params);
+    }
+
     async post(url, params) {
         const xhttp = new XMLHttpRequest();
 
