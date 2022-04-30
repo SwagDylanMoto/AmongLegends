@@ -4,6 +4,7 @@ import { inGamePage } from "./page/inGame.js";
 import { endStatPage } from "./page/endStat.js";
 import { votingPage } from "./page/voting.js";
 import { votedPage } from "./page/voted.js";
+import { endGamePage } from "./page/endGame.js";
 
 let status = null;
 
@@ -58,7 +59,11 @@ async function process() {
                 votedPage.peopleLeft(response.data);
             }
             break;
-
+        case 'EndGame':
+            if (status !== 'Voted') {
+                endGamePage.process(response.data);
+            }
+            break;
     }
 
     status = response.state;

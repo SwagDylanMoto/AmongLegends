@@ -37,6 +37,11 @@ export const insulte = [
     'se branle actuellement',
     'est entrain de chier sa mère',
     'baise sa mère',
-    'le raciste (certainement)',
-    'le neonazi irl (certainement)'
+    'le raciste (probablement)',
+    'le neonazi irl (probablement)',
+    '+ ratio',
+    'le weeb',
+    'la crotte',
+    'la crotte de nez',
+    'est un cafaaaard'
 ]

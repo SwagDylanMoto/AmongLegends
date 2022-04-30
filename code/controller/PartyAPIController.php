@@ -62,6 +62,8 @@ class PartyAPIController extends Controller {
                     $partyWorkflowDTO->state = 'Voted';
                     $partyWorkflowDTO->data = $this->getGameVotedDTO($currentGameDTO);
                 }
+            } elseif($currentGameDTO->statut === $this->partyStatutEnum[4]) { //EndGame
+                $partyWorkflowDTO->state = $this->partyStatutEnum[4];//Lobby
             }
 
             $this->json($partyWorkflowDTO);
