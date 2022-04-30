@@ -43,5 +43,10 @@ export const insulte = [
     'le weeb',
     'la crotte',
     'la crotte de nez',
-    'est un cafaaaard'
+    'est un cafaaaard',
+    'le rocher',
+    'le légume',
+    'la banane',
+    'la plante verte',
+    'le phacochère'
 ]
