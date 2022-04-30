@@ -13,4 +13,21 @@ class Role extends Singleton {
 
         parent::__construct('Role::'.$this->name);
     }
+
+    protected function getVotePoints($gameSessionId) {
+        $points = 0;
+
+        $endVoteService = SingletonRegistry::$registry['EndVoteService'];
+        $gameSessionService = SingletonRegistry::$registry['GameSessionService'];
+
+        $endVotes = $endVoteService->getAllByVotingGS($gameSessionId);
+        foreach ($endVotes as $endVote) {
+            $gameSession = $gameSessionService->get($endVote->votedGSId);
+            if ($gameSession->role === $endVote->role) {
+                $points += 2;
+            }
+        }
+
+        return $points;
+    }
 }

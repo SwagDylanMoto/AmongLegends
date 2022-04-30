@@ -17,7 +17,23 @@ class Ratio extends Role implements RoleCalculation {
     public function calculPoints(EndStatDTO $endStatDTO, int $gameSessionId) {
         $points = 0;
 
-        // TODO: Implement calculPoints() method.
+        if ($endStatDTO->win) {
+            $points += 5;
+        } else {
+            $points -= 5;
+        }
+
+        if ($endStatDTO->mostDmg_GameSessionId === $gameSessionId) {
+            $points += 2;
+        }
+        if ($endStatDTO->mostDeath_GameSessionId === $gameSessionId) {
+            $points += 2;
+        }
+        if ($endStatDTO->mostKill_GameSessionId === $gameSessionId) {
+            $points += 2;
+        }
+
+        $points += $this->getVotePoints($gameSessionId);
 
         return $points;
     }

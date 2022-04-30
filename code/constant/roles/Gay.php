@@ -17,7 +17,13 @@ class Gay extends Role implements RoleCalculation {
     public function calculPoints(EndStatDTO $endStatDTO, int $gameSessionId) {
         $points = 0;
 
-        // TODO: Implement calculPoints() method.
+        if ($endStatDTO->win) {
+            $points += 10;
+        } else {
+            $points -= 5;
+        }
+
+        $points += $this->getVotePoints($gameSessionId);
 
         return $points;
     }
