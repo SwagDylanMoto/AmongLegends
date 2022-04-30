@@ -60,8 +60,11 @@ async function process() {
             }
             break;
         case 'EndGame':
-            if (status !== 'Voted') {
-                endGamePage.process(response.data);
+            if (status !== 'EndGame') {
+                const responseWithData = await api.refresh(true);
+                if (responseWithData.state === 'EndGame' && responseWithData.data != null) {
+                    endGamePage.process(responseWithData.data);
+                }
             }
             break;
     }

@@ -1,5 +1,6 @@
 import { AbstractPage } from './abstract.js';
 import { api } from '../api.js';
+import { roles } from "../roles.js";
 
 class InGamePage extends AbstractPage {
 
@@ -10,7 +11,7 @@ class InGamePage extends AbstractPage {
     process(data) {
         this.contentDiv.innerHTML = '';
 
-        const roleData = this.roles[data.role];
+        const roleData = roles[data.role];
         if (data.roleAddInfos?.startsWith('##')) {
             roleData.description = roleData.description2;
             data.roleAddInfos = data.roleAddInfos.substring(2);
@@ -87,57 +88,6 @@ class InGamePage extends AbstractPage {
                 return 'ton laner ennemis';
             default:
                 return addInfos;
-        }
-    }
-
-    roles = {
-        Gay: {
-            img: './resources/img/roles/Gay.png',
-            title: 'Gay',
-            subtitle: 'Roméo',
-            description: 'Tu es aveuglé par l\'amour (super gay) que tu ressens pour <span class="highlight">###</span> .' +
-                ' Tu dois gagner la partie sans prendre un seul kill à ton amour,' +
-                ' et en mourant pour lui à chaque fois que lui meurt.',
-            description2: 'Tu es aveuglé par l\'amour (super gay) que tu ressens pour <span class="highlight">###</span> .' +
-                ' Tu dois gagner la partie sans jamais tuer ton amour,' +
-                ' et en mourant pour lui à chaque fois que lui meurt.'
-        },
-
-        Krik: {
-            img: './resources/img/roles/Krik.png',
-            title: 'Krik',
-            subtitle: 'Escroc',
-            description: 'Tel un gnar lethalité ou un varus tank,' +
-                ' ton but est de te faire voter comme imposteur (sussy baka) mais surtout sans perdre.',
-            description2: ''
-        },
-
-        Ratio: {
-            img: './resources/img/roles/Ratio.png',
-            title: 'Ratio',
-            subtitle: 'Serpentin',
-            description: 'Tu es là pour la BAGAARRRE en mode RATIOOOO !!!' +
-                ' Ton objectif est d\'avoir le plus de kills, morts et dégats tout en gagnant.',
-            description2: ''
-        },
-
-        Sasuke: {
-            img: './resources/img/roles/Sasuke.png',
-            title: 'Sasuke',
-            subtitle: 'Trop dark',
-            description: 'Tu n\'as pas d\'amis ni de passion, ton seul objectif et de tuer ' +
-                '<span class="highlight">###</span> pour ton venger clan.' +
-                ' Tu dois gagner la partie en focusant uniquement <span class="highlight">###</span>.' +
-                ' Tu tues les autres ennemis seulement si ta cible est déjà morte ou qu\'un ennemis te bloque.',
-            description2: ''
-        },
-
-        SussyBaka: {
-            img: './resources/img/roles/SussyBaka.png',
-            title: 'Sussy Baka',
-            subtitle: 'Imposteur',
-            description: 'Uh oh !! Ton but est de perdre mais sans te faire voter imposteur (Sussy Baka). Bonne chance.',
-            description2: ''
         }
     }
 }

@@ -1,3 +1,98 @@
+.endGame-page {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  padding: 1em;
+  background-color: #36393f;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.endGame-page .title {
+  color: #f8f8ff;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+.endGame-page .score-tab {
+  background-color: #40444b;
+  border-radius: 5px;
+  padding: 1em 1em 0;
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.endGame-page .score-tab .row {
+  height: 80px;
+  max-height: 80px;
+  margin-bottom: 1em;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.endGame-page .score-tab .row .img-col {
+  height: 80px;
+  max-height: 80px;
+  width: 80px;
+  object-fit: contain;
+}
+.endGame-page .score-tab .row .people-col {
+  color: #b9bbbe;
+  font-size: 16px;
+  text-align: center;
+  width: 170px;
+  max-width: 170px;
+  margin: 0;
+}
+.endGame-page .score-tab .row .points-col {
+  color: #b9bbbe;
+  font-size: 16px;
+  text-align: center;
+  width: 80px;
+  max-width: 80px;
+  margin: 0;
+}
+.endGame-page .score-tab .row .voting-col {
+  color: #b9bbbe;
+  font-size: 16px;
+  text-align: center;
+  width: 130px;
+  max-width: 130px;
+  margin: 0 5px;
+}
+.endGame-page .score-tab .row .right {
+  background-color: rgba(70, 196, 110, 0.4);
+}
+.endGame-page .score-tab .row .uhoh {
+  background-color: rgba(250, 168, 26, 0.4);
+}
+.endGame-page .score-tab .row .empty {
+  background-image: url("../img/spongebob.png");
+  background-size: 50px auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 80px;
+  width: 130px;
+  margin: 0;
+}
+.endGame-page .score-tab .row.base-row {
+  height: 50px;
+  max-height: 50px;
+}
+.endGame-page .score-tab .row.base-row p {
+  color: #f8f8ff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+.endGame-page .score-tab .row.base-row .img-col {
+  height: unset;
+}
+
 .endStat-normal-page {
   width: fit-content;
   margin-left: auto;

@@ -63,7 +63,10 @@ class PartyAPIController extends Controller {
                     $partyWorkflowDTO->data = $this->getGameVotedDTO($currentGameDTO);
                 }
             } elseif($currentGameDTO->statut === $this->partyStatutEnum[4]) { //EndGame
-                $partyWorkflowDTO->state = $this->partyStatutEnum[4];//Lobby
+                $partyWorkflowDTO->state = $this->partyStatutEnum[4];
+                if($_GET['maxiData']) {
+                    $partyWorkflowDTO->data = $this->getGameEndGameDTO($currentGameDTO);
+                }
             }
 
             $this->json($partyWorkflowDTO);
@@ -163,6 +166,29 @@ class PartyAPIController extends Controller {
         }
 
         return $gameVotedDTO;
+    }
+
+    private function getGameEndGameDTO(GameDTO $currentGameDTO) {
+        $gameEndGameDTO = new GameEndGameDTO();
+
+        $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
+        foreach ($gameSessions as $gameSession) {
+            $user = new GameEndGameDTO\UserDTO();
+
+            $user->nickname = $gameSession->nickname;
+            $user->points = $gameSession->points;
+            $user->role = $gameSession->role;
+
+            $endVotes = $this->endVoteService->getAllByVotingGS($gameSession->identifier);
+            foreach ($endVotes as $endVote) {
+                $votedGameSession = $this->gameSessionService->get($endVote->votedGSId);
+                $user->vote[$votedGameSession->nickname] = $endVote->role;
+            }
+
+            $gameEndGameDTO->userList[] = $user;
+        }
+
+        return $gameEndGameDTO;
     }
 
     private function json($object) {

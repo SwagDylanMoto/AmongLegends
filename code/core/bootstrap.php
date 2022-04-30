@@ -39,6 +39,7 @@ include($base."code/dto/partyAPI/GameInGameDTO.php");
 include($base."code/dto/partyAPI/GameEndStatDTO.php");
 include($base."code/dto/partyAPI/GameVotingDTO.php");
 include($base."code/dto/partyAPI/GameVotedDTO.php");
+include($base."code/dto/partyAPI/GameEndGameDTO.php");
 //endregion --- DTO ---
 
 //region --- DAO ---
