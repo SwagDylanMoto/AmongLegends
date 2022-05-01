@@ -12,7 +12,7 @@ export const roles = {
                 ' Tu dois gagner la partie sans jamais tuer ton amour,' +
                 ' et en mourant pour lui à chaque fois qu\'il meurt.',
             explication: 'Le gay est lié à un ennemi ou allié par l\'amour. ' +
-                'Il ne peut pas tuer cet ennemi ou prendre un kill à cette ' +
+                'Il ne peut pas tuer cet ennemi ou prendre un kill à cet ' +
                 'allié mais surtout, il doit mourir à chaque fois que son amour meurt. ' +
                 'Le tout en essayant de gagner la partie.'
         },
@@ -21,10 +21,10 @@ export const roles = {
             img: baseUrl+'/resources/img/roles/Krik.png',
             title: 'Krik',
             subtitle: 'Escroc',
-            description: 'Tel un gnar lethalité ou un varus tank,' +
+            description: 'Tel un gnar létalité ou un varus tank,' +
                 ' ton but est de te faire voter comme imposteur (sussy baka) mais surtout sans perdre.',
             description2: '',
-            explication: 'Le Krik doit se faire passé comme imposteur. ' +
+            explication: 'Le Krik doit se faire passer comme imposteur. ' +
                 'Il gagnera des points en se faisant voter \'SussyBaka\'. ' +
                 'Bien sûr le tout sans perdre, le Krik perdra beaucoup de points s\'il perd.'
         },
@@ -34,7 +34,7 @@ export const roles = {
             title: 'Ratio',
             subtitle: 'Serpentin',
             description: 'Tu es là pour la BAGAARRRE en mode RATIOOOO !!!' +
-                ' Ton objectif est d\'avoir le plus de kills, morts et dégats tout en gagnant.',
+                ' Ton objectif est d\'avoir le plus de kills, morts et dégâts tout en gagnant.',
             description2: '',
             explication: 'Le Ratio doit faire la bagarre. Il doit avoir le plus de kills, ' +
                 'de morts et de dégâts de l\'équipe. Le tout en essayant de gagner la partie.'
@@ -46,12 +46,12 @@ export const roles = {
             subtitle: 'Trop dark',
             description: 'Tu n\'as pas d\'amis ni de passion, ton seul objectif et de tuer ' +
                 '<span class="highlight">###</span> pour ton venger clan.' +
-                ' Tu dois gagner la partie en focusant uniquement <span class="highlight">###</span>.' +
-                ' Tu tues les autres ennemis seulement si ta cible est déjà morte ou qu\'un ennemis te bloque.',
+                ' Tu dois gagner la partie en te concentrant uniquement <span class="highlight">###</span>.' +
+                ' Tu tues les autres ennemis seulement si ta cible est déjà morte ou qu\'un ennemi te bloque.',
             description2: '',
             explication: 'Le Sasuke est lié à un ennemi qui est sa cible. ' +
                 'Il doit tuer cet ennemi avant les autres ennemis, ' +
-                'tant que sa cible est en vie le Sasuke est pacifiste avec les autres ennemis. ' +
+                'tant que sa cible est en vie, le Sasuke est pacifiste avec les autres ennemis. ' +
                 'Le tout en essayant de gagner la partie.'
         },
 
@@ -59,10 +59,10 @@ export const roles = {
             img: baseUrl+'/resources/img/roles/SussyBaka.png',
             title: 'Sussy Baka',
             subtitle: 'Imposteur',
-            description: 'Uh oh !! Ton but est de perdre mais sans te faire voter imposteur (Sussy Baka). Bonne chance.',
+            description: 'Uh oh !! Ton but est de perdre sans te faire voter imposteur (Sussy Baka). Bonne chance !',
             description2: '',
             explication: 'Le SussyBaka est l\'imposteur. Il doit perdre la partie, ' +
                 'mais sans se faire choper par les autres joueurs. ' +
-                'Il perdra des points à chàque fois qu\'il se fera voter SussyBaka.'
+                'Il perdra des points à chaque fois qu\'il se fera voter SussyBaka.'
         }
     }
