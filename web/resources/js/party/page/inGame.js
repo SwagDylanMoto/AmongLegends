@@ -75,17 +75,17 @@ class InGamePage extends AbstractPage {
     translateAddInfos(addInfos) {
         switch(addInfos){
             case 'Toplaner':
-                return 'le toplaner ennemis';
+                return 'le toplaner ennemi';
             case 'Jungler':
-                return 'le jungler ennemis';
+                return 'le jungler ennemi';
             case 'Midlaner':
-                return 'le midlaner ennemis';
+                return 'le midlaner ennemi';
             case 'Adc':
-                return 'l\'adc ennemis';
+                return 'l\'adc ennemi';
             case 'Support':
-                return 'le support ennemis';
+                return 'le support ennemi';
             case 'YourLaner':
-                return 'ton laner ennemis';
+                return 'ton laner ennemi';
             default:
                 return addInfos;
         }
