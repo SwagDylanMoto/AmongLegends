@@ -12,7 +12,7 @@ export const roles = {
                 ' Tu dois gagner la partie sans jamais tuer ton amour,' +
                 ' et en mourant pour lui à chaque fois qu\'il meurt.',
             explication: 'Le gay est lié à un ennemi ou allié par l\'amour. ' +
-                'Il ne peut pas tuer cette ennemi ou prendre un kill à cette ' +
+                'Il ne peut pas tuer cet ennemi ou prendre un kill à cette ' +
                 'allié mais surtout, il doit mourir à chaque fois que son amour meurt. ' +
                 'Le tout en essayant de gagner la partie.'
         },
