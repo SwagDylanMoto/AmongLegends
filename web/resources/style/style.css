@@ -199,6 +199,8 @@
 .lobby-page .title {
   margin: 0;
   margin-bottom: 1em;
+  width: 100%;
+  text-align: center;
   color: #f8f8ff;
   font-size: 1.5em;
   font-weight: bold;

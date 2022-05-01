@@ -6,5 +6,5 @@ class Config {
 
     static public string $baseUrl = "http://localhost";
 
-    static public string $version = "1.0";
+    static public string $version = "1.1";
 }

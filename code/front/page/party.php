@@ -9,7 +9,8 @@
                 )->code
             )
             ?></p>
-        <button class="button" onclick="navigator.clipboard.writeText(getElementById('link-to-copy').innerHTML)">
+        <button class="button" id="copy-button"
+                onclick="navigator.clipboard.writeText(getElementById('link-to-copy').innerHTML)">
             Copier
         </button>
     </div>
@@ -20,3 +21,9 @@
 
 </div>
 <script type="module" src="<?php echo(Config::$baseUrl) ?>/resources/js/party/main.js"></script>
+<script>
+    const copyButton = document.getElementById('copy-button');
+    if (!window.isSecureContext) {
+        copyButton.disabled = true;
+    }
+</script>

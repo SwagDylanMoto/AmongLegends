@@ -99,6 +99,7 @@ class PartyAPIController extends Controller {
 
             $partyLobbyDTO->userList[] = $userDTO;
         }
+        usort($partyLobbyDTO->userList, 'pointsComparaison');
 
         return $partyLobbyDTO;
     }
@@ -172,6 +173,7 @@ class PartyAPIController extends Controller {
         $gameEndGameDTO = new GameEndGameDTO();
 
         $gameSessions = $this->gameSessionService->getAllByGame($currentGameDTO->identifier);
+        usort($gameSessions, 'pointsComparaison');
         foreach ($gameSessions as $gameSession) {
             $user = new GameEndGameDTO\UserDTO();
 
@@ -207,6 +209,10 @@ class PartyAPIController extends Controller {
                 break;
         }
     }
+}
+
+function pointsComparaison($a, $b) {
+    return $b->points - $a->points;
 }
 
 new PartyAPIController();
